@@ -1,4 +1,4 @@
-# Github-Testing-Project
+# GitHub-Testing-Project
 ## Летняя практика 2026, UI-тестирование
 ### Участники:
 - Едыгеев Руслан 4343
