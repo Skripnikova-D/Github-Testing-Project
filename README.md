@@ -20,4 +20,4 @@
 | 9 | Создание Pull Request |
 | 10 | Закрытие Pull Request |
 
-### Подробнее (чеклист): [Таблица](https://docs.google.com/spreadsheets/d/1prMjSUMbhIVaQRtQQQlZsFhRhpTKJwLnGoM7mK9ab74/edit?gid=0#gid=0)
+### Подробнее (чеклист): [Таблица](GitHub-Testing-Checklist.pdf)
