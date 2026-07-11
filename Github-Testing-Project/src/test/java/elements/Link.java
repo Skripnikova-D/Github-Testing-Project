@@ -16,6 +16,7 @@ public class Link extends BaseElement{
     private static final String ARIA_LABEL_XPATH = "//a[@aria-label='%s']";
 
     private static final String HREF_WITH_LOCATION_XPATH = "//a[@href='%s' and contains(@data-hydro-click, '%s')]";
+    private static final String HREF_WITH_CLASS_XPATH = "//a[@href='%s' and contains(@class, '%s')]";
 
     // Конструкторы
     /**
@@ -110,6 +111,19 @@ public class Link extends BaseElement{
      */
     public static Link branchInActive(String branchName) {
         String xpath = "//h2[contains(text(), 'Active branches')]/following-sibling::div//a[contains(., '" + branchName + "')]";
+        return new Link(xpath);
+    }
+
+    /**
+     * Поиск ссылки по href с уточнением по классу.
+     * Пример: Link.byHrefWithClass("/login", "HeaderMenu-link--sign-in")
+     *
+     * @param href      Значение атрибута href
+     * @param className Часть или полное имя класса
+     * @return объект Link
+     */
+    public static Link byHrefWithClass(String href, String className) {
+        String xpath = String.format(HREF_WITH_CLASS_XPATH, href, className);
         return new Link(xpath);
     }
 
