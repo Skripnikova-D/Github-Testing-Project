@@ -15,7 +15,6 @@ public class Link extends BaseElement{
     private static final String CONTAINS_XPATH = "//a[contains(., '%s')]";
     private static final String ARIA_LABEL_XPATH = "//a[@aria-label='%s']";
 
-    private static final String TITLE_IN_ROW_XPATH = "//td[@class='react-directory-row-name-cell-large-screen']//a[@title='%s']";
     private static final String HREF_WITH_LOCATION_XPATH = "//a[@href='%s' and contains(@data-hydro-click, '%s')]";
 
     // Конструкторы
@@ -73,17 +72,6 @@ public class Link extends BaseElement{
      */
     public static Link byAriaLabel(String ariaLabel) {
         return new Link(ARIA_LABEL_XPATH, ariaLabel);
-    }
-
-    /**
-     * Поиск ссылки по title внутри ячейки таблицы (для файлов в списке).
-     * Пример: Link.byTitleInRow("NewFile.txt")
-     *
-     * @param title Значение атрибута title
-     * @return объект Link
-     */
-    public static Link byTitleInRow(String title) {
-        return new Link(TITLE_IN_ROW_XPATH, title);
     }
 
     /**
