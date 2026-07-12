@@ -32,7 +32,7 @@ public class DeleteBranchTest extends BaseTest {
         repoPage.openRepository(repoName);
 
         // Шаг 2: Нажать на выбор ветки "NewBranch"
-        repoPage.select(branchName);
+        repoPage.selectBranch(branchName);
 
         // Шаг 3: Нажать View all branches
         BranchesPage branchesPage = repoPage.clickViewAllBranches();
