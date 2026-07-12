@@ -11,9 +11,9 @@ import static com.codeborne.selenide.Selenide.$x;
  * Наследуется от BaseElement.
  * Пример: Table table = new Table("Active branches");
  */
-public class Table extends BaseElement {
+public class BranchTable extends BaseElement {
 
-    private static final Logger logger = LoggerFactory.getLogger(Table.class);
+    private static final Logger logger = LoggerFactory.getLogger(BranchTable.class);
     private static final String TABLE_BY_HEADER = "//h2[contains(text(), '%s')]/following-sibling::div";
     private static final String ROW_BY_TEXT_XPATH = ".//tr[contains(., '%s')]";
     private static final String DELETE_BUTTON_IN_ROW_XPATH = ".//span[text()='Delete branch']/preceding-sibling::button";
@@ -26,7 +26,7 @@ public class Table extends BaseElement {
      *
      * @param headerText Текст заголовка таблицы
      */
-    public Table(String headerText) {
+    public BranchTable(String headerText) {
         super(TABLE_BY_HEADER, headerText);
         logger.info("Поиск таблицы по заголовку: {}", headerText);
     }
@@ -54,7 +54,7 @@ public class Table extends BaseElement {
      */
     public static void deleteBranch(String tableName, String branchName) {
         logger.info("Удаление ветки из таблицы {}: {}", tableName, branchName);
-        Table table = new Table(tableName);
+        BranchTable table = new BranchTable(tableName);
         SelenideElement row = table.getRow(branchName);
         row.$x(DELETE_BUTTON_IN_ROW_XPATH).click();
         logger.info("Кнопка удаления ветки нажата");
@@ -66,7 +66,7 @@ public class Table extends BaseElement {
      */
     public static void clickBranchLink(String tableName, String branchName) {
         logger.info("Клик по ссылке на ветку в таблице {}: {}", tableName, branchName);
-        Table table = new Table(tableName);
+        BranchTable table = new BranchTable(tableName);
         SelenideElement row = table.getRow(branchName);
         String xpath = String.format(BRANCH_LINK_IN_ROW_XPATH, branchName);
         row.$x(xpath).click();

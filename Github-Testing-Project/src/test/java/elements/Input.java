@@ -38,6 +38,29 @@ public class Input extends BaseElement{
         super(xpath);
     }
 
+    //Методы взаимодействия
+    /**
+     * Вводит текст в поле.
+     * Пример: input.setValue("test");
+     *
+     * @param text Текст для ввода
+     */
+    public void setValue(String text) {
+        logger.info("Ввод текста в поле: '{}'", text);
+        baseElement.setValue(text);
+    }
+
+    /**
+     * Возвращает текущий текст из поля.
+     * Пример: String value = input.getValue();
+     *
+     * @return Текст из поля
+     */
+    public String getValue() {
+        logger.debug("Получение значения из поля");
+        return baseElement.getValue();
+    }
+
     //Методы поиска
     /**
      * Поиск поля ввода по ID.
@@ -81,28 +104,5 @@ public class Input extends BaseElement{
      */
     public static Input byLabel(String labelText) {
         return new Input(LABEL_XPATH, labelText);
-    }
-
-    //Методы взаимодействия
-    /**
-     * Вводит текст в поле.
-     * Пример: input.setValue("test");
-     *
-     * @param text Текст для ввода
-     */
-    public void setValue(String text) {
-        logger.info("Ввод текста в поле: '{}'", text);
-        baseElement.setValue(text);
-    }
-
-    /**
-     * Возвращает текущий текст из поля.
-     * Пример: String value = input.getValue();
-     *
-     * @return Текст из поля
-     */
-    public String getValue() {
-        logger.debug("Получение значения из поля");
-        return baseElement.getValue();
     }
 }

@@ -31,7 +31,7 @@ public class SelectMenu extends BaseElement {
      *
      * @param branchName Название ветки
      */
-    public void selectBranch(String branchName) {
+    public void select(String branchName) {
         logger.info("Выбор ветки: {}", branchName);
         String itemXpath = String.format(ITEM_BY_NAME, branchName);
         baseElement.$x(itemXpath).click();

@@ -35,29 +35,6 @@ public class CodeMirrorInput extends BaseElement{
         super(xpath);
     }
 
-    //Методы поиска
-    /**
-     * Поиск редактора CodeMirror по классу.
-     * Пример: CodeMirrorInput.byClass("cm-editor")
-     *
-     * @param className Имя класса редактора
-     * @return объект CodeMirrorInput
-     */
-    public static CodeMirrorInput byClass(String className) {
-        return new CodeMirrorInput(CLASS_XPATH, className);
-    }
-
-    /**
-     * Поиск редактора CodeMirror по готовому XPath.
-     * Пример: CodeMirrorInput.byXpath("//div[contains(@class, 'cm-editor')]")
-     *
-     * @param xpath Полный XPath элемента
-     * @return объект CodeMirrorInput
-     */
-    public static CodeMirrorInput byXpath(String xpath) {
-        return new CodeMirrorInput(xpath);
-    }
-
     //Методы взаимодействия
     /**
      * Вводит текст в редактор.
@@ -80,5 +57,28 @@ public class CodeMirrorInput extends BaseElement{
         logger.info("Очистка CodeMirror редактора");
         baseElement.click();
         baseElement.clear();
+    }
+
+    //Методы поиска
+    /**
+     * Поиск редактора CodeMirror по классу.
+     * Пример: CodeMirrorInput.byClass("cm-editor")
+     *
+     * @param className Имя класса редактора
+     * @return объект CodeMirrorInput
+     */
+    public static CodeMirrorInput byClass(String className) {
+        return new CodeMirrorInput(CLASS_XPATH, className);
+    }
+
+    /**
+     * Поиск редактора CodeMirror по готовому XPath.
+     * Пример: CodeMirrorInput.byXpath("//div[contains(@class, 'cm-editor')]")
+     *
+     * @param xpath Полный XPath элемента
+     * @return объект CodeMirrorInput
+     */
+    public static CodeMirrorInput byXpath(String xpath) {
+        return new CodeMirrorInput(xpath);
     }
 }

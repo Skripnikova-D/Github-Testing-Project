@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
  * Класс для работы с кнопками на странице.
  * Пример: Button button = Button.byContainsText("Submit");
  */
-public class Button extends BaseElement{
+public class Button extends BaseElement implements Clickable{
 
     private static final Logger logger = LoggerFactory.getLogger(Button.class); //Логгер для записи сообщений о работе класса
 
@@ -38,6 +38,16 @@ public class Button extends BaseElement{
      */
     protected Button(String xpath) {
         super(xpath);
+    }
+
+    //Методы взаимодействия
+    /**
+     * Кликает по кнопке.
+     */
+    @Override
+    public void click() {
+        logger.info("Клик по кнопке: {}", baseElement);
+        baseElement.click();
     }
 
     //Методы поиска
@@ -107,24 +117,4 @@ public class Button extends BaseElement{
         return new Button(xpath);
     }
 
-    /**
-     * Поиск кнопки удаления ветки в секции "Active branches".
-     * Пример: Button.deleteBranchButton("FirstDranch")
-     *
-     * @param branchName Название ветки, которую нужно удалить
-     * @return объект Button
-     */
-    public static Button deleteBranchButton(String branchName) {
-        String xpath = "//h2[text()='Active branches']/following-sibling::div//tr[contains(., '" + branchName + "')]//span[text()='Delete branch']/preceding-sibling::button";
-        return new Button(xpath);
-    }
-
-    //Методы взаимодействия
-    /**
-     * Кликает по кнопке.
-     */
-    public void click() {
-        logger.info("Клик по кнопке: {}", baseElement);
-        baseElement.click();
-    }
 }
