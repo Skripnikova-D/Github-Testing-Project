@@ -11,9 +11,9 @@ import static com.codeborne.selenide.Selenide.$x;
  * Наследуется от BaseElement.
  * Пример: Table table = new Table("Active branches");
  */
-public class Table extends BaseElement {
+public class BranchTable extends BaseElement {
 
-    private static final Logger logger = LoggerFactory.getLogger(Table.class);
+    private static final Logger logger = LoggerFactory.getLogger(BranchTable.class);
     private static final String TABLE_BY_HEADER = "//h2[contains(text(), '%s')]/following-sibling::div";
     private static final String ROW_BY_TEXT_XPATH = ".//tr[contains(., '%s')]";
     private static final String DELETE_BUTTON_IN_ROW_XPATH = ".//span[text()='Delete branch']/preceding-sibling::button";
@@ -26,9 +26,9 @@ public class Table extends BaseElement {
      *
      * @param headerText Текст заголовка таблицы
      */
-    public Table(String headerText) {
+    public BranchTable(String headerText) {
         super(TABLE_BY_HEADER, headerText);
-        logger.info("Поиск таблицы по заголовку: {}", headerText);
+        //logger.info("Поиск таблицы по заголовку: {}", headerText);
     }
 
     // Поиск внутри таблицы
@@ -39,7 +39,7 @@ public class Table extends BaseElement {
      * @return SelenideElement строка таблицы
      */
     private SelenideElement getRow(String rowText) {
-        logger.debug("Поиск строки с текстом: {}", rowText);
+        //logger.debug("Поиск строки с текстом: {}", rowText);
         String xpath = String.format(ROW_BY_TEXT_XPATH, rowText);
         return baseElement.$x(xpath);
     }
@@ -53,11 +53,11 @@ public class Table extends BaseElement {
      * @param branchName Название ветки, которую нужно удалить
      */
     public static void deleteBranch(String tableName, String branchName) {
-        logger.info("Удаление ветки из таблицы {}: {}", tableName, branchName);
-        Table table = new Table(tableName);
+       // logger.info("Удаление ветки из таблицы {}: {}", tableName, branchName);
+        BranchTable table = new BranchTable(tableName);
         SelenideElement row = table.getRow(branchName);
         row.$x(DELETE_BUTTON_IN_ROW_XPATH).click();
-        logger.info("Кнопка удаления ветки нажата");
+        //logger.info("Кнопка удаления ветки нажата");
     }
 
     /**
@@ -65,8 +65,8 @@ public class Table extends BaseElement {
      * Пример: Table.clickBranchLink("Active branches", "asdf")
      */
     public static void clickBranchLink(String tableName, String branchName) {
-        logger.info("Клик по ссылке на ветку в таблице {}: {}", tableName, branchName);
-        Table table = new Table(tableName);
+       // logger.info("Клик по ссылке на ветку в таблице {}: {}", tableName, branchName);
+        BranchTable table = new BranchTable(tableName);
         SelenideElement row = table.getRow(branchName);
         String xpath = String.format(BRANCH_LINK_IN_ROW_XPATH, branchName);
         row.$x(xpath).click();
@@ -80,7 +80,7 @@ public class Table extends BaseElement {
      * @param fileName Название файла (значение атрибута title)
      */
     public static void clickFileLink(String tdClass, String fileName) {
-        logger.info("Клик по ссылке на файл: {}", fileName);
+        //logger.info("Клик по ссылке на файл: {}", fileName);
         // Находим ссылку напрямую по XPath
         String xpath = String.format(FILE_LINK_IN_ROW_XPATH, tdClass, fileName);
         $x(xpath).click();

@@ -35,6 +35,30 @@ public class CodeMirrorInput extends BaseElement{
         super(xpath);
     }
 
+    //Методы взаимодействия
+    /**
+     * Вводит текст в редактор.
+     * Сначала кликает по полю (чтобы активировать редактор), затем вводит текст.
+     * Пример: editor.setValue("Just Description");
+     *
+     * @param text Текст для ввода
+     */
+    public void setValue(String text) {
+        //logger.info("Ввод текста в CodeMirror редактор: '{}'", text);
+        baseElement.click();
+        baseElement.setValue(text);
+    }
+
+    /**
+     * Очищает содержимое редактора.
+     * Пример: editor.clear();
+     */
+    public void clear() {
+       // logger.info("Очистка CodeMirror редактора");
+        baseElement.click();
+        baseElement.clear();
+    }
+
     //Методы поиска
     /**
      * Поиск редактора CodeMirror по классу.
@@ -56,29 +80,5 @@ public class CodeMirrorInput extends BaseElement{
      */
     public static CodeMirrorInput byXpath(String xpath) {
         return new CodeMirrorInput(xpath);
-    }
-
-    //Методы взаимодействия
-    /**
-     * Вводит текст в редактор.
-     * Сначала кликает по полю (чтобы активировать редактор), затем вводит текст.
-     * Пример: editor.setValue("Just Description");
-     *
-     * @param text Текст для ввода
-     */
-    public void setValue(String text) {
-        logger.info("Ввод текста в CodeMirror редактор: '{}'", text);
-        baseElement.click();
-        baseElement.setValue(text);
-    }
-
-    /**
-     * Очищает содержимое редактора.
-     * Пример: editor.clear();
-     */
-    public void clear() {
-        logger.info("Очистка CodeMirror редактора");
-        baseElement.click();
-        baseElement.clear();
     }
 }

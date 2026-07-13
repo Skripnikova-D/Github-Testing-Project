@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
  * Класс для работы с пунктами выпадающих списков.
  * Пример: DropdownItem item = DropdownItem.byRoleAndText("Public");
  */
-public class DropdownItem extends BaseElement{
+public class DropdownItem extends BaseElement implements Clickable{
     private static final Logger logger = LoggerFactory.getLogger(DropdownItem.class); //Логгер для записи сообщений о работе класса
     private static final String MENU_AND_TEXT_XPATH = "//ul[@role='%s']//li[contains(., '%s')]";
 
@@ -32,6 +32,16 @@ public class DropdownItem extends BaseElement{
         super(xpath);
     }
 
+    //Метод взаимодействия
+    /**
+     * Выбирает пункт меню (кликает по нему).
+     */
+    @Override
+    public void click() {
+        //logger.info("Клик по пункту меню: {}", baseElement);
+        baseElement.click();
+    }
+
     //Методы поиска
     /**
      * Поиск пункта меню по роли меню и тексту пункта.
@@ -53,12 +63,4 @@ public class DropdownItem extends BaseElement{
         return new DropdownItem(xpath);
     }
 
-    //Метод взаимодействия
-    /**
-     * Выбирает пункт меню (кликает по нему).
-     */
-    public void click() {
-        logger.info("Клик по пункту меню: {}", baseElement);
-        baseElement.click();
-    }
 }

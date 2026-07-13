@@ -36,6 +36,15 @@ public  class Summary extends BaseElement{
         super(xpath);
     }
 
+    // Методы взаимодействия
+    /**
+     * Кликает по элементу <summary>, чтобы раскрыть список.
+     */
+    public void click() {
+        //logger.info("Клик по элементу Summary: {}", baseElement);
+        baseElement.click();
+    }
+
     // Методы поиска
     /**
      * Поиск элемента <summary> по части текста.
@@ -68,14 +77,5 @@ public  class Summary extends BaseElement{
      */
     public static Summary byXpath(String xpath) {
         return new Summary(xpath);
-    }
-
-    // Методы взаимодействия
-    /**
-     * Кликает по элементу <summary>, чтобы раскрыть список.
-     */
-    public void click() {
-        logger.info("Клик по элементу Summary: {}", baseElement);
-        baseElement.click();
     }
 }

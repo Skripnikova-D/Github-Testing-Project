@@ -2,8 +2,7 @@ package pages;
 
 import elements.Button;
 import elements.Input;
-import elements.Link;
-import elements.Table;
+import elements.BranchTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +60,7 @@ public class BranchesPage extends BasePage {
      */
     public BranchesPage deleteBranch(String branchName) {
         logger.info("Удаление ветки: {}", branchName);
-        Table.deleteBranch("Active branches", branchName);
+        BranchTable.deleteBranch("Active branches", branchName);
         return this;
     }
 

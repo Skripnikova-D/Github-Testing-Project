@@ -26,7 +26,7 @@ public class NewPullRequestPage extends BasePage {
         logger.info("Выбор base ветки: {}", branchName);
         // Нажимаем на селектор base ветки
         Link.byContainsText("base:").click();
-        baseMenu.selectBranch(branchName);
+        baseMenu.select(branchName);
         return this;
     }
 
@@ -37,7 +37,7 @@ public class NewPullRequestPage extends BasePage {
         logger.info("Выбор compare ветки: {}", branchName);
         // Нажимаем на селектор compare ветки
         Link.byContainsText("compare:").click();
-        headMenu.selectBranch(branchName);
+        headMenu.select(branchName);
         return this;
     }
 

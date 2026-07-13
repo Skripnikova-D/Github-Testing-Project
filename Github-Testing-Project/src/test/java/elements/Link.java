@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
  * Класс для работы со ссылками на странице.
  * Пример: Link link = Link.byHref("/pulls");
  */
-public class Link extends BaseElement{
+public class Link extends BaseElement implements Clickable{
     private static final Logger logger = LoggerFactory.getLogger(Link.class); //Логгер для записи сообщений о работе класса
 
     // Шаблоны XPath
@@ -17,6 +17,7 @@ public class Link extends BaseElement{
 
     private static final String HREF_WITH_LOCATION_XPATH = "//a[@href='%s' and contains(@data-hydro-click, '%s')]";
     private static final String HREF_WITH_CLASS_XPATH = "//a[@href='%s' and contains(@class, '%s')]";
+    private static final String BRANCH_XPATH = "//*[contains(@id, '%s')]//a[span='%s']";
 
     // Конструкторы
     /**
@@ -38,6 +39,16 @@ public class Link extends BaseElement{
      */
     protected Link(String xpath) {
         super(xpath);
+    }
+
+    // Методы взаимодействия
+    /**
+     * Кликает по ссылке.
+     */
+    @Override
+    public void click() {
+       // logger.info("Клик по ссылке: {}", baseElement);
+        baseElement.click();
     }
 
     // Методы поиска
@@ -98,19 +109,7 @@ public class Link extends BaseElement{
      * @return объект Link
      */
     public static Link branch(String type, String branchName) {
-        String xpath = "//*[contains(@id, '" + type + "')]//a[span='" + branchName + "']";
-        return new Link(xpath);
-    }
-
-    /**
-     * Поиск ветки в секции "Active branches" по названию.
-     * Пример: Link.branchInActive("asdf")
-     *
-     * @param branchName Название ветки
-     * @return объект Link
-     */
-    public static Link branchInActive(String branchName) {
-        String xpath = "//h2[contains(text(), 'Active branches')]/following-sibling::div//a[contains(., '" + branchName + "')]";
+        String xpath = String.format(BRANCH_XPATH, type, branchName);
         return new Link(xpath);
     }
 
@@ -125,14 +124,5 @@ public class Link extends BaseElement{
     public static Link byHrefWithClass(String href, String className) {
         String xpath = String.format(HREF_WITH_CLASS_XPATH, href, className);
         return new Link(xpath);
-    }
-
-    // Методы взаимодействия
-    /**
-     * Кликает по ссылке.
-     */
-    public void click() {
-        logger.info("Клик по ссылке: {}", baseElement);
-        baseElement.click();
     }
 }
