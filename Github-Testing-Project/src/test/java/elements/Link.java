@@ -47,7 +47,7 @@ public class Link extends BaseElement implements Clickable{
      */
     @Override
     public void click() {
-        logger.info("Клик по ссылке: {}", baseElement);
+       // logger.info("Клик по ссылке: {}", baseElement);
         baseElement.click();
     }
 

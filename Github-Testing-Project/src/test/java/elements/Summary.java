@@ -41,7 +41,7 @@ public  class Summary extends BaseElement{
      * Кликает по элементу <summary>, чтобы раскрыть список.
      */
     public void click() {
-        logger.info("Клик по элементу Summary: {}", baseElement);
+        //logger.info("Клик по элементу Summary: {}", baseElement);
         baseElement.click();
     }
 

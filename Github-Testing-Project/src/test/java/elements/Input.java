@@ -46,7 +46,7 @@ public class Input extends BaseElement{
      * @param text Текст для ввода
      */
     public void setValue(String text) {
-        logger.info("Ввод текста в поле: '{}'", text);
+        //logger.info("Ввод текста в поле: '{}'", text);
         baseElement.setValue(text);
     }
 
@@ -57,7 +57,7 @@ public class Input extends BaseElement{
      * @return Текст из поля
      */
     public String getValue() {
-        logger.debug("Получение значения из поля");
+       // logger.debug("Получение значения из поля");
         return baseElement.getValue();
     }
 

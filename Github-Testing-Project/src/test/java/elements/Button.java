@@ -46,7 +46,7 @@ public class Button extends BaseElement implements Clickable{
      */
     @Override
     public void click() {
-        logger.info("Клик по кнопке: {}", baseElement);
+        //logger.info("Клик по кнопке: {}", baseElement);
         baseElement.click();
     }
 

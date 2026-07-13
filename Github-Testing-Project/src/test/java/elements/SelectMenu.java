@@ -22,7 +22,7 @@ public class SelectMenu extends BaseElement {
      */
     public SelectMenu(String type) {
         super(String.format(MENU_BY_TITLE, type), "");
-        logger.info("Поиск меню выбора веток: {}", type);
+      //  logger.info("Поиск меню выбора веток: {}", type);
     }
 
     /**
@@ -32,9 +32,9 @@ public class SelectMenu extends BaseElement {
      * @param branchName Название ветки
      */
     public void select(String branchName) {
-        logger.info("Выбор ветки: {}", branchName);
+       // logger.info("Выбор ветки: {}", branchName);
         String itemXpath = String.format(ITEM_BY_NAME, branchName);
         baseElement.$x(itemXpath).click();
-        logger.info("Ветка {} выбрана", branchName);
+      //  logger.info("Ветка {} выбрана", branchName);
     }
 }

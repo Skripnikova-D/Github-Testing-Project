@@ -44,7 +44,7 @@ public class CodeMirrorInput extends BaseElement{
      * @param text Текст для ввода
      */
     public void setValue(String text) {
-        logger.info("Ввод текста в CodeMirror редактор: '{}'", text);
+        //logger.info("Ввод текста в CodeMirror редактор: '{}'", text);
         baseElement.click();
         baseElement.setValue(text);
     }
@@ -54,7 +54,7 @@ public class CodeMirrorInput extends BaseElement{
      * Пример: editor.clear();
      */
     public void clear() {
-        logger.info("Очистка CodeMirror редактора");
+       // logger.info("Очистка CodeMirror редактора");
         baseElement.click();
         baseElement.clear();
     }

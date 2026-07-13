@@ -31,7 +31,7 @@ public class BaseElement{
      */
     protected BaseElement(String xpath, String attributeValue) {
         String fullXpath = String.format(xpath, attributeValue);
-        logger.info("Поиск элемента по XPath: {}", fullXpath);
+       // logger.info("Поиск элемента по XPath: {}", fullXpath);
         baseElement = $x(fullXpath);
     }
 
@@ -42,7 +42,7 @@ public class BaseElement{
      * @param xpath Полный XPath элемента
      */
     protected BaseElement(String xpath) {
-        logger.info("Поиск элемента по готовому XPath: {}", xpath);
+       // logger.info("Поиск элемента по готовому XPath: {}", xpath);
         baseElement = $x(xpath);
     }
 
@@ -56,10 +56,10 @@ public class BaseElement{
      */
     public boolean isDisplayed() {
         try {
-            logger.debug("Проверка видимости элемента: {}", baseElement);
+           // logger.debug("Проверка видимости элемента: {}", baseElement);
             return baseElement.shouldBe(visible, Duration.ofSeconds(WAIT_SECONDS)).isDisplayed();
         } catch (UndeclaredThrowableException | ElementNotFound e) {
-            logger.warn("Элемент не найден или не стал видимым за {} секунд", WAIT_SECONDS);
+            //logger.warn("Элемент не найден или не стал видимым за {} секунд", WAIT_SECONDS);
             return false;
         }
     }

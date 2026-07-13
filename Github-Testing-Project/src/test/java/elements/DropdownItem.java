@@ -38,7 +38,7 @@ public class DropdownItem extends BaseElement implements Clickable{
      */
     @Override
     public void click() {
-        logger.info("Клик по пункту меню: {}", baseElement);
+        //logger.info("Клик по пункту меню: {}", baseElement);
         baseElement.click();
     }
 
