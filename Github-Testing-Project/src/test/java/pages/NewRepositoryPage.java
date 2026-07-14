@@ -1,6 +1,7 @@
 package pages;
 
 import elements.Button;
+import elements.DropdownItem;
 import elements.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +13,10 @@ public class NewRepositoryPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NewRepositoryPage.class);
 
     // Элементы страницы
-    private final Input repoNameInput = Input.byName("repository[name]");
-    private final Button publicRadio = Button.byId("repository_visibility_public");
-    private final Button privateRadio = Button.byId("repository_visibility_private");
+    private final Input repoNameInput = Input.byId("repository-name-input");
+    private final Button visibilityRepoButton = Button.byId("visibility-anchor-button");
+    private final DropdownItem publicRadio = DropdownItem.byMenuAndText("menu", "Public");
+    private final DropdownItem privateRadio = DropdownItem.byMenuAndText("menu", "Private");
     private final Button createRepoButton = Button.byContainsText("Create repository");
 
     /**
@@ -23,6 +25,11 @@ public class NewRepositoryPage extends BasePage {
     public NewRepositoryPage setRepositoryName(String name) {
         logger.info("Установка имени репозитория: {}", name);
         repoNameInput.setValue(name);
+        return this;
+    }
+
+    public NewRepositoryPage selectVisibility(){
+        visibilityRepoButton.click();
         return this;
     }
 

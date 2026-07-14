@@ -17,7 +17,7 @@ public class RepoTest extends BaseTest {
         NewRepositoryPage newRepoPage = mainPage.clickNewButton();
 
         newRepoPage.setRepositoryName(repoName);
-
+        newRepoPage.selectVisibility();
         if (isPrivate) {
             newRepoPage.selectPrivateVisibility();
         } else {

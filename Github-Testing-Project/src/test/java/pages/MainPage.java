@@ -14,7 +14,7 @@ public class MainPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(MainPage.class);
 
     // Элементы страницы
-    private final Button newButton = Button.byContainsText("New");
+    private final Link newButton = Link.byHrefWithLocation("/new","left");
     private final Link repositoryLink = Link.byContainsText("NewRepoPublic1");
 
     /**

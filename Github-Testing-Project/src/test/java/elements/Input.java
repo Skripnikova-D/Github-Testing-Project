@@ -51,6 +51,26 @@ public class Input extends BaseElement{
     }
 
     /**
+     * Вводит текст посимвольно с небольшой случайной задержкой,
+     * имитируя ввод реальным пользователем (в отличие от setValue,
+     * который вставляет текст мгновенно через JS).
+     * Пример: usernameInput.typeSlowly("myLogin");
+     *
+     * @param text Текст для ввода
+     */
+    public void typeSlowly(String text) {
+        baseElement.click(); // ставим фокус в поле, как это делает пользователь
+        for (char c : text.toCharArray()) {
+            baseElement.sendKeys(String.valueOf(c));
+            try {
+                Thread.sleep(50 + (long) (Math.random() * 100));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    /**
      * Возвращает текущий текст из поля.
      * Пример: String value = input.getValue();
      *
