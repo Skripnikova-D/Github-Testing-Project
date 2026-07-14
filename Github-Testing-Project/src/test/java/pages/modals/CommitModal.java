@@ -5,6 +5,7 @@ import elements.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pages.CreateFilePage;
 import pages.RepositoryPage;
 
 import java.time.Duration;
@@ -22,7 +23,7 @@ public class CommitModal extends BaseModal {
 
     private static final String MODAL_XPATH = "//div[@role='dialog' and contains(., 'Commit changes')]";
 
-    // Элементы модального окна
+    // элементы
     private final Input commitMessageInput = Input.byAriaLabel("Commit message");
     private final Button commitButton = Button.byContainsText("Commit changes");
     private final Button cancelButton = Button.byContainsText("Cancel");
