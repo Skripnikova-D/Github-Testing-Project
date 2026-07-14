@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$x;
  */
 public class BranchesPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(BranchesPage.class);
-
+    private static final String BRANCH_XPATH = "//a[contains(text(), '%s')]";
     // Элементы страницы
     private final Button newBranchButton = Button.byContainsText("New branch");
     private final Input branchNameInput = Input.byAriaLabel("Branch name");
@@ -69,6 +69,6 @@ public class BranchesPage extends BasePage {
      */
     public boolean isBranchExists(String branchName) {
         logger.info("Проверка существования ветки: {}", branchName);
-        return $x("//a[contains(text(), '" + branchName + "')]").isDisplayed();
+        return $x(String.format(BRANCH_XPATH, branchName)).isDisplayed();
     }
 }
