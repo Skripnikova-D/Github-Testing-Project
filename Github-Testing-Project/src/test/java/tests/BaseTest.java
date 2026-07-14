@@ -9,7 +9,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 
-import pages.LoginPage;  // ← ДОБАВЬТЕ ИМПОРТ
+import pages.LoginPage;
 
 /**
  * Базовый класс для всех тестовых классов проекта.
