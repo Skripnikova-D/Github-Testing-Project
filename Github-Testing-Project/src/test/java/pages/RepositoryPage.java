@@ -13,6 +13,10 @@ import static com.codeborne.selenide.Selenide.$x;
  */
 public class RepositoryPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(RepositoryPage.class);
+    private static final String REPO_NAME_XPATH = "//strong[@class='mr-2 flex-self-stretch']";
+    private static final String PRIVATE_BADGE_XPATH = "//span[contains(text(), 'Private')]";
+    private static final String REPO_IN_LIST_XPATH = "//a[contains(text(), '%s')]";
+    private static final String FILE_EXISTS_XPATH = "//a[contains(@title, '%s')]";
 
     // Элементы страницы
     private final Button addFileButton = Button.byAriaLabel("Add file");
@@ -129,7 +133,7 @@ public class RepositoryPage extends BasePage {
      */
     public boolean isFileExists(String fileName) {
         logger.info("Проверка наличия файла: {}", fileName);
-        return $x("//a[contains(@title, '" + fileName + "')]").isDisplayed();
+        return $x(String.format(FILE_EXISTS_XPATH, fileName)).isDisplayed();
     }
 
     /**
@@ -137,7 +141,7 @@ public class RepositoryPage extends BasePage {
      */
     public String getRepositoryName() {
         logger.info("Получение имени репозитория");
-        return $x("//strong[@class='mr-2 flex-self-stretch']").getText();
+        return $x(REPO_NAME_XPATH).getText();
     }
 
     /**
@@ -145,7 +149,7 @@ public class RepositoryPage extends BasePage {
      */
     public boolean isPrivate() {
         logger.info("Проверка, является ли репозиторий приватным");
-        return $x("//span[contains(text(), 'Private')]").isDisplayed();
+        return $x(PRIVATE_BADGE_XPATH).isDisplayed();
     }
 
     /**
@@ -153,7 +157,7 @@ public class RepositoryPage extends BasePage {
      */
     public boolean isRepositoryInList(String repoName) {
         logger.info("Проверка наличия репозитория {} в списке", repoName);
-        return $x("//a[contains(text(), '" + repoName + "')]").isDisplayed();
+        return $x(String.format(REPO_IN_LIST_XPATH, repoName)).isDisplayed();
     }
 
     /**
@@ -176,5 +180,5 @@ public class RepositoryPage extends BasePage {
 }
 public boolean isFilePresent(String fileName) {
     logger.info("Проверка наличия файла: {}", fileName);
-    return $x("//a[contains(@title, '" + fileName + "')]").isDisplayed();
+    return $x(String.format(FILE_EXISTS_XPATH, fileName)).isDisplayed();
 }
