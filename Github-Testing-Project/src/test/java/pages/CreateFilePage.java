@@ -6,10 +6,13 @@ import elements.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pages.modals.CommitModal;
+
 /**
  * Страница создания нового файла.
  */
 public class CreateFilePage extends BasePage {
+
     private static final Logger logger = LoggerFactory.getLogger(CreateFilePage.class);
 
     // Элементы страницы
@@ -37,19 +40,13 @@ public class CreateFilePage extends BasePage {
 
     /**
      * Нажимает кнопку "Commit changes..."
+     * Открывается модальное окно коммита
      */
-    public CreateFilePage clickCommitChangesButton() {
+    public CommitModal clickCommitChangesButton() {
         logger.info("Нажатие кнопки Commit changes...");
         commitChangesButton.click();
-        return this;
-    }
 
-    /**
-     * Подтверждает коммит
-     */
-    public RepositoryPage confirmCommit() {
-        logger.info("Подтверждение коммита");
-        Button.byContainsText("Commit changes").click();
-        return new RepositoryPage();
+        // Возвращаем модальное окно
+        return new CommitModal();
     }
 }
