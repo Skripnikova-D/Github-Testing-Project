@@ -15,6 +15,8 @@ import static com.codeborne.selenide.Selenide.$x;
 public class BaseModal {
 
     protected static final Logger logger = LoggerFactory.getLogger(BaseModal.class);
+    
+    private static final String BODY_XPATH = "//body";
 
     protected final SelenideElement modalContainer;
 
@@ -36,6 +38,6 @@ public class BaseModal {
      */
     public void close() {
         logger.info("Закрытие модального окна");
-        $x("//body").click();
+        $x(BODY_XPATH).click();
     }
 }
