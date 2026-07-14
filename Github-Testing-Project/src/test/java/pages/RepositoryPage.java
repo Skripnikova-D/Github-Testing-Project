@@ -105,7 +105,7 @@ public class RepositoryPage extends BasePage {
      */
     public String getCurrentBranchName() {
         logger.info("Получение текущей ветки");
-        return branchSelector.baseElement.getText();
+        return branchSelector.getText();
     }
 
     /**
@@ -177,8 +177,9 @@ public class RepositoryPage extends BasePage {
         Link.byHref("/pulls").click();
         return new PullRequestsPage();
     }
-}
-public boolean isFilePresent(String fileName) {
+
+    public boolean isFilePresent(String fileName) {
     logger.info("Проверка наличия файла: {}", fileName);
     return $x(String.format(FILE_EXISTS_XPATH, fileName)).isDisplayed();
+}
 }

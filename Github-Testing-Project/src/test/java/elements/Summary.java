@@ -78,4 +78,8 @@ public  class Summary extends BaseElement{
     public static Summary byXpath(String xpath) {
         return new Summary(xpath);
     }
+
+    public String getText() {
+        return baseElement.getText();
+    }
 }
