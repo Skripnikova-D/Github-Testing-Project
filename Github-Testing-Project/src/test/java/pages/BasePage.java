@@ -14,12 +14,13 @@ import static com.codeborne.selenide.Selenide.$x;
  */
 public class BasePage {
     protected static final Logger logger = LoggerFactory.getLogger(BasePage.class);
+    protected static final String BODY_XPATH = "//body";
 
     /**
      * Проверяет, загружена ли страница (по умолчанию - проверка body)
      */
     public boolean isLoaded() {
-        return $x("//body").isDisplayed();
+        return $x(BODY_XPATH).isDisplayed();
     }
 
     /**
