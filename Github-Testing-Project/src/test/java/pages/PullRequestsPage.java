@@ -11,9 +11,15 @@ import static com.codeborne.selenide.Selenide.$x;
  * Страница со списком Pull Requests.
  */
 public class PullRequestsPage extends BasePage {
+    
     private static final Logger logger = LoggerFactory.getLogger(PullRequestsPage.class);
-
-    // Элементы страницы
+    
+    private static final String PR_OPEN_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'open')]";
+    private static final String PR_CLOSED_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'closed')]";
+    private static final String PR_IN_LIST_XPATH = "//a[contains(text(), '%s')]";
+    private static final String PR_STATUS_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'Issue')]//span[contains(@class, 'State')]";
+    
+    // ЭЛЕМЕНТЫ СТРАНИЦЫ 
     private final Button newPullRequestButton = Button.byContainsText("New pull request");
     private final Button closePullRequestButton = Button.byContainsText("Close pull request");
 
@@ -49,7 +55,7 @@ public class PullRequestsPage extends BasePage {
      */
     public boolean isPullRequestOpen(String prName) {
         logger.info("Проверка, что Pull Request {} открыт", prName);
-        return $x("//a[contains(text(), '" + prName + "')]/ancestor::div[contains(@class, 'open')]").isDisplayed();
+        return $x(String.format(PR_OPEN_XPATH, prName)).isDisplayed();
     }
 
     /**
@@ -57,7 +63,7 @@ public class PullRequestsPage extends BasePage {
      */
     public boolean isPullRequestClosed(String prName) {
         logger.info("Проверка, что Pull Request {} закрыт", prName);
-        return $x("//a[contains(text(), '" + prName + "')]/ancestor::div[contains(@class, 'closed')]").isDisplayed();
+        return $x(String.format(PR_CLOSED_XPATH, prName)).isDisplayed();
     }
 
     /**
@@ -65,7 +71,7 @@ public class PullRequestsPage extends BasePage {
      */
     public boolean isPullRequestInList(String prName) {
         logger.info("Проверка, что Pull Request {} отображается в списке", prName);
-        return $x("//a[contains(text(), '" + prName + "')]").isDisplayed();
+        return $x(String.format(PR_IN_LIST_XPATH, prName)).isDisplayed();
     }
 
     /**
@@ -73,7 +79,6 @@ public class PullRequestsPage extends BasePage {
      */
     public String getPullRequestStatus(String prName) {
         logger.info("Получение статуса Pull Request: {}", prName);
-        return $x("//a[contains(text(), '" + prName + "')]/ancestor::div[contains(@class, 'Issue')]//span[contains(@class, 'State')]")
-                .getText();
+        return $x(String.format(PR_STATUS_XPATH, prName)).getText();
     }
 }
