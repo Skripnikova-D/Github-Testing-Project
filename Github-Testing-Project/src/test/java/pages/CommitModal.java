@@ -1,12 +1,13 @@
-package pages.modals;
+package pages;
 
 import elements.Button;
 import elements.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pages.CreateFilePage;
+
 import pages.RepositoryPage;
+import pages.CreateFilePage;
 
 import java.time.Duration;
 
@@ -23,13 +24,14 @@ public class CommitModal extends BaseModal {
 
     private static final String MODAL_XPATH = "//div[@role='dialog' and contains(., 'Commit changes')]";
 
-    // элементы
+    // Элементы модального окна
     private final Input commitMessageInput = Input.byAriaLabel("Commit message");
     private final Button commitButton = Button.byContainsText("Commit changes");
     private final Button cancelButton = Button.byContainsText("Cancel");
 
     public CommitModal() {
         super(MODAL_XPATH);
+        waitForOpen();
         logger.info("Модальное окно коммита открыто");
     }
 
@@ -51,7 +53,7 @@ public class CommitModal extends BaseModal {
         commitButton.click();
 
         // Ожидание закрытия модального окна
-        $x(MODAL_XPATH).shouldBe(hidden, Duration.ofSeconds(5));
+        waitForClose();
         logger.info("Модальное окно закрыто, возврат на страницу репозитория");
 
         return new RepositoryPage();

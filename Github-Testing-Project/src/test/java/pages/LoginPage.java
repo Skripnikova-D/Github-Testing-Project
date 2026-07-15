@@ -24,8 +24,8 @@ public class LoginPage extends BasePage {
      */
     public MainPage login(String username, String password) {
         logger.info("Вход с пользователем: {}", username);
-        usernameInput.setValue(username);
-        passwordInput.setValue(password);
+        //usernameInput.typeSlowly(username);
+        //passwordInput.typeSlowly(password);
         signInButton.click();
         return new MainPage();
     }

@@ -17,7 +17,7 @@ public class RepoTest extends BaseTest {
         NewRepositoryPage newRepoPage = mainPage.clickNewButton();
 
         newRepoPage.setRepositoryName(repoName);
-
+        newRepoPage.selectVisibility();
         if (isPrivate) {
             newRepoPage.selectPrivateVisibility();
         } else {
@@ -36,16 +36,18 @@ public class RepoTest extends BaseTest {
     @Test
     @DisplayName("Создание публичного репозитория")
     public void createPublicRepositoryTest() {
-        loginWithValidUser();
-        createRepository("NewRepoPublic1", false);
+        //loginWithValidUser();
+        loginViaCookies();
+        createRepository("NewRepoPublic-" + RUN_ID, false);
     }
 
     @Test
     @DisplayName("Создание приватного репозитория")
     public void createPrivateRepositoryTest() {
-        String repoName = "NewRepoPrivate1";
+        String repoName = "NewRepoPrivate-" + RUN_ID;
 
-        loginWithValidUser();
+        //loginWithValidUser();
+        loginViaCookies();
         RepositoryPage repoPage = createRepository(repoName, true);
 
         Assertions.assertTrue(repoPage.isPrivate(), "Репозиторий должен быть приватным");

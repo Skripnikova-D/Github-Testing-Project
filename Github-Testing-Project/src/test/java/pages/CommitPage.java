@@ -16,10 +16,5 @@ public class CommitPage extends BasePage {
         commitButton.click();
         return new RepositoryPage();
     }
-
-    public RepositoryPage cancel() {
-        logger.info("Отмена коммита");
-        cancelButton.click();
-        return new RepositoryPage();
-    }
+    
 }

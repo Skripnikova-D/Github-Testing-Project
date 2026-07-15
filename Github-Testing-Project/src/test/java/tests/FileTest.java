@@ -3,48 +3,57 @@ package tests;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pages.MainPage;
-import pages.RepositoryPage;
 import pages.CreateFilePage;
+import pages.RepositoryPage;
 import pages.FilePage;
 import pages.CommitPage;
+import pages.CommitModal;
 
 public class FileTest extends BaseTest {
 
     private static final String REPO_NAME = "NewRepoPublic1";
-    private static final String FILE_NAME = "NewFile.txt";
+    private static final String FILE_NAME = "NewFile-"+ RUN_ID+".txt";
+    private static final String FILE_CONTENT = "Hello, World!";
 
-    /**
-     * Тест создания и удаления файла.
-     */
     @Test
-    @DisplayName("Создание и удаление файла в репозитории")
-    public void createAndDeleteFileTest() {
-        loginWithValidUser();
+    @DisplayName("Создание файла в репозитории")
+    public void createFileTest() {
+        //loginWithValidUser();
+        loginViaCookies();
+        RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
 
-        // --- Создание файла ---
-        MainPage mainPage = new MainPage();
-        RepositoryPage repoPage = mainPage.openRepository(REPO_NAME);
-        repoPage.clickAddFileButton();
+        CreateFilePage createFilePage = repoPage.clickAddFileButton()
+                .selectCreateNewFileOption();
 
-        CreateFilePage createFilePage = repoPage.selectCreateNewFileOption();
-        createFilePage.setFileName(FILE_NAME);
-        createFilePage.setFileContent("Just Description");
-        createFilePage.clickCommitChangesButton();
+        createFilePage.setFileName(FILE_NAME)
+                .setFileContent(FILE_CONTENT);
 
-        RepositoryPage updatedRepoPage = createFilePage.confirmCommit();
+        CommitModal commitModal = createFilePage.clickCommitChangesButton();
+        RepositoryPage updatedRepoPage = commitModal.confirm();
 
         Assertions.assertTrue(updatedRepoPage.isFileExists(FILE_NAME),
-                "Файл '" + FILE_NAME + "' должен отображаться в репозитории");
+                "Файл '" + FILE_NAME + "' должен быть создан");
+    }
 
-        // --- Удаление файла ---
-        FilePage filePage = updatedRepoPage.clickOnFile(FILE_NAME);
-        filePage.clickMoreOptions();
+    @Test
+    @DisplayName("Удаление файла из репозитория")
+    public void deleteFileTest() {
+        //loginWithValidUser();
+        loginViaCookies();
+        RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
 
-        CommitPage commitPage = filePage.selectDeleteFile();
-        RepositoryPage finalRepoPage = commitPage.confirm();
+        // Проверяем, что файл существует перед удалением
+        Assertions.assertTrue(repoPage.isFileExists(FILE_NAME),
+                "Файл '" + FILE_NAME + "' должен существовать перед удалением");
 
-        Assertions.assertFalse(finalRepoPage.isFileExists(FILE_NAME),
-                "Файл '" + FILE_NAME + "' не должен отображаться в репозитории");
+        FilePage filePage = repoPage.clickOnFile(FILE_NAME);
+        
+        CommitPage commitPage = filePage.clickMoreOptions()
+                                        .selectDeleteFile();
+        
+        RepositoryPage updatedRepoPage = commitPage.confirm();
+
+        Assertions.assertFalse(updatedRepoPage.isFileExists(FILE_NAME),
+                "Файл '" + FILE_NAME + "' должен быть удалён");
     }
 }
