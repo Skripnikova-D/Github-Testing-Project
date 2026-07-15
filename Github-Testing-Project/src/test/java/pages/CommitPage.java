@@ -11,15 +11,10 @@ public class CommitPage extends BasePage {
     private final Button commitButton = Button.byContainsText("Commit changes");
     private final Button cancelButton = Button.byContainsText("Cancel");
 
-    public RepositoryPage confirm() {
+    public CommitModal confirm() {
         logger.info("Подтверждение коммита");
         commitButton.click();
-        return new RepositoryPage();
+        return new CommitModal();
     }
 
-    public RepositoryPage cancel() {
-        logger.info("Отмена коммита");
-        cancelButton.click();
-        return new RepositoryPage();
-    }
 }

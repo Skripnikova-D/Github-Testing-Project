@@ -12,6 +12,7 @@ import static com.codeborne.selenide.Selenide.$x;
  */
 public class LoginPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(LoginPage.class);
+    private static final String ERROR_MESSAGE_XPATH = "//div[@class='flash-error']";
 
     // Элементы страницы
     private final Input usernameInput = Input.byId("login_field");
@@ -23,8 +24,8 @@ public class LoginPage extends BasePage {
      */
     public MainPage login(String username, String password) {
         logger.info("Вход с пользователем: {}", username);
-        usernameInput.setValue(username);
-        passwordInput.setValue(password);
+        //usernameInput.typeSlowly(username);
+        //passwordInput.typeSlowly(password);
         signInButton.click();
         return new MainPage();
     }
@@ -33,6 +34,6 @@ public class LoginPage extends BasePage {
      * Проверяет, отображается ли сообщение об ошибке
      */
     public boolean isErrorMessageDisplayed() {
-        return $x("//div[@class='flash-error']").isDisplayed();
+        return $x(ERROR_MESSAGE_XPATH).isDisplayed();
     }
 }
