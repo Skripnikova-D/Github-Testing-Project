@@ -1,18 +1,22 @@
 package pages;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.ex.ElementNotFound;
 import elements.Button;
 import elements.Input;
 import elements.BranchTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.hidden;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class BranchesPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(BranchesPage.class);
     private static final String BRANCH_XPATH = "//h2[contains(text(), 'Active branches')]/following-sibling::div//a[contains(., '%s')]";
+    private static final String DELETE_BUTTON_XPATH = "//h2[contains(text(), 'Active branches')]/following-sibling::div//tr[contains(., '%s')]//span[contains(text(), 'Delete branch')]/preceding-sibling::button";
 
     private final Button newBranchButton = Button.byContainsText("New branch");
     private final Input branchNameInput = Input.byLabel("New branch name");
@@ -45,8 +49,11 @@ public class BranchesPage extends BasePage {
     public BranchesPage deleteBranch(String branchName) {
         logger.info("Удаление ветки: {}", branchName);
         BranchTable.deleteBranch("Active branches", branchName);
-        logger.info("Обновление страницы для отображения актуального списка веток");
-        Selenide.refresh();
+        String deleteButtonXpath = String.format(DELETE_BUTTON_XPATH, branchName);
+        $x(deleteButtonXpath).shouldNotBe(visible, Duration.ofSeconds(10));
+
+
+
         return this;
     }
 
@@ -56,7 +63,7 @@ public class BranchesPage extends BasePage {
             // Ждем до 10 секунд. Если ветка есть - вернет true.
             $x(String.format(BRANCH_XPATH, branchName)).shouldBe(visible, Duration.ofSeconds(10));
             return true;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             // Если ветки нет, ловим исключение и возвращаем false (это ожидаемое поведение для теста удаления)
             logger.info("Ветка '{}' не найдена (это нормально для теста удаления)", branchName);
             return false;
