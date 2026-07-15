@@ -16,7 +16,7 @@ public class BranchesPage extends BasePage {
     private static final String BRANCH_XPATH = "//a[contains(text(), '%s')]";
     // Элементы страницы
     private final Button newBranchButton = Button.byContainsText("New branch");
-    private final Input branchNameInput = Input.byAriaLabel("Branch name");
+    private final Input branchNameInput = Input.byLabel("New branch name");
     private final Button createBranchButton = Button.byContainsText("Create new branch");
 
     /**

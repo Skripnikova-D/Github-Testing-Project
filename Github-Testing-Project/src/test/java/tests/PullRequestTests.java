@@ -8,7 +8,7 @@ import pages.MainPage;
 import pages.NewPullRequestPage;
 import pages.PullRequestsPage;
 import pages.RepositoryPage;
-import pages.modals.CommitModal;
+import pages.CommitModal;
 
 public class PullRequestTests extends BaseTest {
 
@@ -22,8 +22,8 @@ public class PullRequestTests extends BaseTest {
     @Test
     @DisplayName("Создание Pull Request между main и NewBranch")
     public void createPullRequestTest() {
-        loginWithValidUser();
-
+        //loginWithValidUser();
+        loginViaCookies();
         // ---- 1. Открываем репозиторий ----
         MainPage mainPage = new MainPage();
         RepositoryPage repoPage = mainPage.openRepository(REPO_NAME);
@@ -69,9 +69,9 @@ public class PullRequestTests extends BaseTest {
     @Test
     @DisplayName("Закрытие пулреквеста")
     public void closePullRequestTest() {
-        loginWithValidUser();
-        RepositoryPage repoPage = new RepositoryPage();
-        repoPage.openRepository(REPO_NAME);
+        //loginWithValidUser();
+        loginViaCookies();
+        RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
 
         // Проверяем, что PR существует перед закрытием
         PullRequestsPage prPage = repoPage.clickPullRequestsTab();

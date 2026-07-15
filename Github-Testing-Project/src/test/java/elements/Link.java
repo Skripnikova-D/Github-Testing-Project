@@ -14,6 +14,7 @@ public class Link extends BaseElement implements Clickable{
     private static final String HREF_XPATH = "//a[@href='%s']";
     private static final String CONTAINS_XPATH = "//a[contains(., '%s')]";
     private static final String ARIA_LABEL_XPATH = "//a[@aria-label='%s']";
+    private static final String DATA_TAB_ITEM_XPATH = "//a[@data-tab-item='%s']";
 
     private static final String HREF_WITH_LOCATION_XPATH = "//a[@href='%s' and contains(@data-hydro-click, '%s')]";
     private static final String HREF_WITH_CLASS_XPATH = "//a[@href='%s' and contains(@class, '%s')]";
@@ -124,5 +125,9 @@ public class Link extends BaseElement implements Clickable{
     public static Link byHrefWithClass(String href, String className) {
         String xpath = String.format(HREF_WITH_CLASS_XPATH, href, className);
         return new Link(xpath);
+    }
+
+    public static Link byDataTabItem(String tabItem) {
+        return new Link(DATA_TAB_ITEM_XPATH, tabItem);
     }
 }

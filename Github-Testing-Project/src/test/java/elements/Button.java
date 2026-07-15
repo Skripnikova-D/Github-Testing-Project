@@ -50,6 +50,10 @@ public class Button extends BaseElement implements Clickable{
         baseElement.click();
     }
 
+    public String getText() {
+        return baseElement.getText();
+    }
+
     //Методы поиска
     /**
      * Поиск кнопки по ID.

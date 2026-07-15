@@ -1,4 +1,4 @@
-package pages.modals;
+package pages;
 
 import elements.Button;
 import elements.Input;
@@ -31,6 +31,7 @@ public class CommitModal extends BaseModal {
 
     public CommitModal() {
         super(MODAL_XPATH);
+        waitForOpen();
         logger.info("Модальное окно коммита открыто");
     }
 
@@ -52,7 +53,7 @@ public class CommitModal extends BaseModal {
         commitButton.click();
 
         // Ожидание закрытия модального окна
-        $x(MODAL_XPATH).shouldBe(hidden, Duration.ofSeconds(5));
+        waitForClose();
         logger.info("Модальное окно закрыто, возврат на страницу репозитория");
 
         return new RepositoryPage();

@@ -6,7 +6,7 @@ import elements.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pages.modals.CommitModal;
+import pages.CommitModal;
 
 /**
  * Страница создания нового файла.
