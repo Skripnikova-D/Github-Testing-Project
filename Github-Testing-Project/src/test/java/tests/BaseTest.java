@@ -27,19 +27,19 @@ public class BaseTest {
     protected static final String VALID_USERNAME = System.getProperty("github.username", "Test7473");
     //protected static final String VALID_PASSWORD = System.getProperty("github.password", "Test737475");
 
-    protected static final String USER_SESSION="c_gUpg7z_VtsHfLVKMiPvynx6KYrgdR-qVTQOGF8pFpVcOsS";
-    protected static final String HOST_SESSION="c_gUpg7z_VtsHfLVKMiPvynx6KYrgdR-qVTQOGF8pFpVcOsS";
-    protected static final String GH_SESS = "fO0nYjQR95rBfrLWujv5gnx%2FySl4wu6utxnfieU8fiSl1MBBuripeks7S3f0pdXscIyJtNq1" +
-            "TQbqEbr6FBC%2Fn4d15j8ZVHbOD8TPRUD6cViBQ8gMNqsMPnHeRabTWuv94shXcgy3Ko1XDOKkP8xgVAC1KSm9FkUeFdFb0glmYdHf%2F0" +
-            "VC%2FVLrRsxJXpuMXSZ8nj%2B0yuTnezh1OXouIYwlbKgqegChAk6k4yWkpmaRxWE9GvuQ2pZOdQNUZ7a3ON26FtCsBAQXeet8O19ftrUb" +
-            "7UArHAJMCIhlLTn%2FaYaAZxqX3UZHoE8KFoCzgisbTxJor2nVzy1KLnllSW5vPmIPPuU9g8zB8%2FzYo%2BpMVfg%2Fh5pUyhJKOHBFMx" +
-            "vcqskERr3QNnDBvL2pxeAfDLu8KmZHxfmRwEv7yfHXM%2FSw7Pnw5gDCyn2XxM8ifFMfdz2esNmyfH7A6r5i%2B5bp3%2BqGnO%2F%2FPTXA" +
-            "82hGp2iAoiy4d4tm3RYUnwEsH5A40S4DBIjTAVsnPXUqRSmUkWO6Lcer4V2Yk6sHJraq34wuo%2FFs8e%2Bbg1tmABwAd9SKfby%2FadOEK84" +
-            "tObVlmbC2mVU2JQt0aBkF3ZIsJva6XNz1NDzihLnGTvM6i2lcm9FfiwmRaacng2E1%2BZb%2FYX564S9iOi6fYiZoEBknPicti2m0Wncvsr9" +
-            "dQK5d1huGgHZoNn5M482cwgQnBURsuFW1q755KpnKWD1ISp8SHCH1cQ%2FaUNX8wjDZuVar%2BItQW0sKhzCbDo7VQb8XJ50TzJ3e5uPqrgR" +
-            "JtgbEenVo995uucWBARiB5qH0DENC1DlqQQbiqEP3jFFUF1ivNjkzABsi6wff9uhnanJlTALkcetzEkmb%2FTa2s%2BINZ0g6rqAKOyKtPQ%" +
-            "3D%3D--KCZCBWSHqFio4qtE--D%2BmHD%2B2ttDLGLFON1DUolQ%3D%3D";
-    protected static final String SAVED_SESSION = "305031555%3Ac_gUpg7z_VtsHfLVKMiPvynx6KYrgdR-qVTQOGF8pFpVcOsS";
+    protected static final String USER_SESSION="fjv2Xx1bvlsC96e_sKONqxczHzYDiEed6NJvbJzcZkNdpRUK";
+    protected static final String HOST_SESSION="fjv2Xx1bvlsC96e_sKONqxczHzYDiEed6NJvbJzcZkNdpRUK";
+    protected static final String GH_SESS = "aZOeKT2Quc80CmZO2TSAQNC1n2ZhqQv9uYuoKfyRAJDTXJU%2BDn2t4rhCKhhKvbKtvkM6pS" +
+            "6jSmG%2FoLLHO16aFovgdBJUJRR0J9PdUYD6nD2A0Jy3%2FmrAyofPonDGHT17pW97fheiDvFAMBQaOHfF4itK1IuWOzRiP70To%2B14Gu" +
+            "ZWNCGdAOTs3HqpkhePx1krxjgNNekCRqQduZ95PIndPazf%2Bm27cPkTgzhCMHEkKkNsL1HwDz6CHp4kjpb6wwN%2FdyqlaCl1MUNiVG71" +
+            "GQah9YaBL7BlUvOr62voTHPxsEHwaU97BSq4GLM86k8rNKC1uG0T9rTNqfBZ5mmzPFXSCxSYKmJCoz6aSBIMNDLJDZVHyGZDP8NG61mJRn" +
+            "DaJYXR%2BZGYvdwsz%2BZ02I3xVFqzZcGZfAN1rgUZBOYihNmrU4WseuLFX8Lz9sgWxPI6%2FYCY42AULUVHOFrWYpIFRvLapoVlEe6X7f" +
+            "KxRZPX3PbYtJYslxtci8FEOXSKbRAzoBuuQwSefhQ99hKlgBYwSF3t%2FC5s%2BbC5D7JdLQoJgXuw%2FN4coAKQbTtoY0p77LOsUKt5X8g" +
+            "QJ6%2Fjvn5Th1F3gDGAgDzJqCEPqDd6GXyfmCgEmulJGTVrm%2BpSngknT6V4tKHpAgEdsI6Agl3YNjvVJErh8Pp15SE6Ol%2BIvX%2BQzM" +
+            "VatnzD1%2B9uevw%2FyQ8aHLNZtoB0nHo%2BeNFRlUmG1Ejuj7fDXmp69VDd2jf8oZElNTo2aH5bjDoqe9wzNwxrv4r1%2BS08L5S0G0bSS" +
+            "zmw388kWH0DShpIH11D40KmvGksQlqTOMfiWrpQtTf%2BtolcICRlKQOFmldth0Go32Z%2Fs7awwdRBBLkcrydmlLVv--F6H8fD66wTTWCo" +
+            "ip--CB4A3%2B%2FhWWPlaWLDjkaY2A%3D%3D";
+    protected static final String SAVED_SESSION = "305031555%3Afjv2Xx1bvlsC96e_sKONqxczHzYDiEed6NJvbJzcZkNdpRUK";
 
     protected static final String BASE_URL = "https://github.com";
     protected static final String RUN_ID = String.valueOf(System.currentTimeMillis());

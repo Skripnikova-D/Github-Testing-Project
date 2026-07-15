@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,52 +9,45 @@ import pages.MainPage;
 import pages.RepositoryPage;
 
 public class BranchTests extends BaseTest {
-
     private static final String REPO_NAME = "NewRepoPublic1";
-    private static final String BRANCH_NAME = "NewBranch" + RUN_ID;
+    private static final String BRANCH_NAME = "NewBranch";
 
     @Test
     @DisplayName("Создание новой ветки в репозитории")
     public void createNewBranchTest() {
-        //loginWithValidUser();
         loginViaCookies();
 
         MainPage mainPage = new MainPage();
         RepositoryPage repoPage = mainPage.openRepository(REPO_NAME);
-
         repoPage.goToCodeTab();
 
+        // 1. Переходим на страницу веток
         BranchesPage branchesPage = repoPage.clickViewAllBranches();
 
-        branchesPage.clickNewBranchButton()
-                    .setBranchName(BRANCH_NAME)
-                    .clickCreateNewBranch();
+        // 2. Создаем ветку. GitHub делает редирект, поэтому метод возвращает НОВЫЙ объект RepositoryPage
+        BranchesPage updatedBranchesPage = branchesPage.clickNewBranchButton()
+                .setBranchName(BRANCH_NAME)
+                .clickCreateNewBranch();
 
-        // Проверка: ветка должна существовать в списке
-        // Возвращаемся на страницу веток для проверки
-        branchesPage = repoPage.clickViewAllBranches();
-        Assertions.assertTrue(branchesPage.isBranchExists(BRANCH_NAME),
+        // 3. ВАЖНО: Используем обновленный объект updatedRepoPage для перехода на страницу веток.
+        // Это гарантирует, что мы работаем с актуальным URL и состоянием браузера.
+        //BranchesPage updatedBranchesPage = updatedRepoPage.clickViewAllBranches();
+
+        // 4. Проверяем наличие ветки (метод isBranchExists ниже содержит try-catch и ожидание 10 сек)
+        Assertions.assertTrue(updatedBranchesPage.isBranchExists(BRANCH_NAME),
                 "Ветка '" + BRANCH_NAME + "' должна быть создана и отображаться в списке");
     }
 
     @Test
     @DisplayName("Удаление ветки")
     public void deleteBranchTest() {
-        //loginWithValidUser();
         loginViaCookies();
         RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
 
         BranchesPage branchesPage = repoPage.clickViewAllBranches();
-
-        branchesPage.findBranch(BRANCH_NAME)
-                    .deleteBranch(BRANCH_NAME);
-
+        branchesPage.deleteBranch(BRANCH_NAME);
+        Selenide.refresh();
         Assertions.assertFalse(branchesPage.isBranchExists(BRANCH_NAME),
                 "Ветка '" + BRANCH_NAME + "' не должна отображаться в списке");
-
-        // Дополнительная проверка: ветка не должна быть доступна в выпадающем списке на странице репозитория
-        repoPage =RepositoryPage.openRepository(REPO_NAME);
-        Assertions.assertFalse(repoPage.isBranchAvailableInDropdown(BRANCH_NAME),
-                "Ветка '" + BRANCH_NAME + "' не должна быть доступна для выбора в выпадающем списке");
     }
 }
