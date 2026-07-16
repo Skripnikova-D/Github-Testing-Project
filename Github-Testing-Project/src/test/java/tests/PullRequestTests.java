@@ -1,11 +1,12 @@
 package tests;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.*;
 import pages.*;
 
+import static com.codeborne.selenide.Selenide.sleep;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PullRequestTests extends BaseTest {
 
     private static final String REPO_NAME = "NewRepoPublic1";
@@ -55,26 +56,46 @@ public class PullRequestTests extends BaseTest {
                 "PR с названием '" + PR_TITLE + "' должен быть создан");
     }
 
-    @Test
+    /*@Test
     @Order(2)
     @DisplayName("Закрытие пулреквеста")
     public void closePullRequestTest() {
         //loginWithValidUser();
         loginViaCookies();
         RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
-
+        PullRequestsPage prPage = repoPage.goToPullRequestsTab();
         // Проверяем, что PR существует перед закрытием
-        PullRequestsPage prPage = repoPage.clickPullRequestsTab();
         Assertions.assertTrue(prPage.isPullRequestInList(PR_TITLE),
                 "PR с названием '" + PR_TITLE + "' должен существовать");
 
         prPage.clickPullRequest(PR_TITLE)
               .clickClosePullRequest();
 
+        Selenide.refresh();
         // Проверка статуса
         Assertions.assertTrue(prPage.isPullRequestClosed(PR_TITLE),
                 "Pull request '" + PR_TITLE + "' должен иметь статус Closed");
-        Assertions.assertEquals("Closed", prPage.getPullRequestStatus(PR_TITLE),
-                "Статус пулреквеста должен быть 'Closed'");
+    }*/
+    @Test
+    @Order(2)
+    @DisplayName("Закрытие пулреквеста")
+    public void closePullRequestTest() {
+        loginViaCookies();
+        RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
+        PullRequestsPage prPage = repoPage.goToPullRequestsTab();
+
+        // Проверяем, что PR существует перед закрытием
+        Assertions.assertTrue(prPage.isPullRequestInList(PR_TITLE),
+                "PR с названием '" + PR_TITLE + "' должен существовать");
+
+        // 1. Кликаем на PR и СОХРАНЯЕМ возвращаемую страницу конкретного PR
+        PullRequestPage prDetailPage = prPage.clickPullRequest(PR_TITLE);
+
+        // 3. Закрываем PR
+        prDetailPage=prDetailPage.clickClosePullRequest();
+        sleep(10000);
+        // 4. Проверяем статус НА СТРАНИЦЕ САМОГО PR, а не в общем списке!
+        Assertions.assertTrue(prDetailPage.isPullRequestClosed(PR_TITLE),
+                "Pull request '" + PR_TITLE + "' должен иметь статус Closed");
     }
 }

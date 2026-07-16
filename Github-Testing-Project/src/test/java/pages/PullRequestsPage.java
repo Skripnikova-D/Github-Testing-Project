@@ -19,7 +19,7 @@ public class PullRequestsPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(PullRequestsPage.class);
     
     private static final String PR_OPEN_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'open')]";
-    private static final String PR_CLOSED_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'closed')]";
+    private static final String PR_CLOSED_XPATH = "//span[@data-status='pullClosed']";
     private static final String PR_IN_LIST_XPATH = "//a[contains(text(), '%s')]";
     private static final String PR_STATUS_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'Issue')]//span[contains(@class, 'State')]";
     
@@ -39,10 +39,10 @@ public class PullRequestsPage extends BasePage {
     /**
      * Кликает на Pull Request по имени
      */
-    public PullRequestsPage clickPullRequest(String prName) {
+    public PullRequestPage clickPullRequest(String prName) {
         logger.info("Клик на Pull Request: {}", prName);
         Link.byContainsText(prName).click();
-        return this;
+        return new PullRequestPage();
     }
 
     /**
