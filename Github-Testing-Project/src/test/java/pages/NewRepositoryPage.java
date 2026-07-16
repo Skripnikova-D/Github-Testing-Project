@@ -6,15 +6,6 @@ import elements.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
-
-import java.time.Duration;
-
-import static com.codeborne.selenide.Selenide.$x;
-
 /**
  * Страница создания нового репозитория.
  */
@@ -64,24 +55,8 @@ public class NewRepositoryPage extends BasePage {
      * Нажимает кнопку создания репозитория
      */
     public RepositoryPage clickCreateRepositoryButton() {
-        logger.info("Нажимаем кнопку создания репозитория");
-
-        // XPath из Excel: //button[contains(., 'Create repository')]
-        SelenideElement button = $x("//button[contains(., 'Create repository')]")
-                .shouldBe(Condition.visible, Condition.enabled);
-
-        button.scrollIntoView(true);
-        Selenide.sleep(500);
-        button.click();
-        logger.info("Клик по кнопке выполнен");
-
-        // Ждем перехода - используем WebDriverRunner.url()
-        logger.info("Ожидаем перехода на страницу репозитория...");
-        Selenide.Wait().withTimeout(Duration.ofSeconds(30))
-                .until(driver -> !WebDriverRunner.url().contains("/new"));
-
-        logger.info("Переход выполнен. Текущий URL: {}", WebDriverRunner.url());
-
+        logger.info("Нажатие кнопки создания репозитория");
+        createRepoButton.click();
         return new RepositoryPage();
     }
 }

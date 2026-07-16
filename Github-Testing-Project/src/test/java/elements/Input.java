@@ -1,22 +1,15 @@
 package elements;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Класс для работы с полями ввода на странице.
  * Пример: Input field = Input.byId("username");
  */
 public class Input extends BaseElement{
 
-    private static final Logger logger = LoggerFactory.getLogger(Input.class); //Логгер для записи сообщений о работе класса
-    // Шаблоны XPath
     private static final String ID_XPATH = "//input[@id='%s']";
     private static final String ARIA_LABEL_XPATH = "//input[@aria-label='%s']";
-    private static final String NAME_XPATH = "//input[@name='%s']";
     private static final String LABEL_XPATH = "//label[contains(., '%s')]/following-sibling::*//input";
 
-    // Конструкторы
     /**
      * Конструктор с подстановкой значения в шаблон XPath.
      * Пример: new Input("//input[@id='%s']", "username")
@@ -29,16 +22,15 @@ public class Input extends BaseElement{
     }
 
     /**
-     * Конструктор для готового XPath (без подстановки).
-     * Пример: new Input("//input[@data-testid='custom-input']")
+     * Вводит текст в поле.
+     * Пример: input.setValue("test");
      *
-     * @param xpath Полный XPath элемента
+     * @param text Текст для ввода
      */
-    protected Input(String xpath) {
-        super(xpath);
+    public void setValue(String text) {
+        baseElement.setValue(text);
     }
 
-    //Методы поиска
     /**
      * Поиск поля ввода по ID.
      * Пример: Input.byId("username")
@@ -62,17 +54,6 @@ public class Input extends BaseElement{
     }
 
     /**
-     * Поиск поля ввода по атрибуту name.
-     * Пример: Input.byName("repository[name]")
-     *
-     * @param name Значение атрибута name
-     * @return объект Input
-     */
-    public static Input byName(String name) {
-        return new Input(NAME_XPATH, name);
-    }
-
-    /**
      * Поиск поля ввода по тексту label.
      * Пример: Input.byLabel("New branch name")
      *
@@ -81,28 +62,5 @@ public class Input extends BaseElement{
      */
     public static Input byLabel(String labelText) {
         return new Input(LABEL_XPATH, labelText);
-    }
-
-    //Методы взаимодействия
-    /**
-     * Вводит текст в поле.
-     * Пример: input.setValue("test");
-     *
-     * @param text Текст для ввода
-     */
-    public void setValue(String text) {
-        logger.info("Ввод текста в поле: '{}'", text);
-        baseElement.setValue(text);
-    }
-
-    /**
-     * Возвращает текущий текст из поля.
-     * Пример: String value = input.getValue();
-     *
-     * @return Текст из поля
-     */
-    public String getValue() {
-        logger.debug("Получение значения из поля");
-        return baseElement.getValue();
     }
 }

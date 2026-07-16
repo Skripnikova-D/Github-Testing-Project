@@ -1,12 +1,12 @@
 package tests;
 
-import java.time.Duration;
+
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,6 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 
-import pages.LoginPage;
 
 /**
  * Базовый класс для всех тестовых классов проекта.
@@ -24,13 +23,21 @@ import pages.LoginPage;
 public class BaseTest {
     private static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
-    protected static final String VALID_USERNAME = System.getProperty("github.username", "NikLun4");
-    //protected static final String VALID_PASSWORD = System.getProperty("github.password", "xxVVii333!!!");
+    protected static final String VALID_USERNAME = System.getProperty("github.username", "Test7473");
 
-    protected static final String USER_SESSION="FfmVz90yVHuhYWcq4SYyTzHGMrA1-igs6QT14bmX0KYUit9p";
-    protected static final String HOST_SESSION="FfmVz90yVHuhYWcq4SYyTzHGMrA1-igs6QT14bmX0KYUit9p";
-    protected static final String GH_SESS = "Huf6KaAJJ15VeTy4GZrVHW3T4ofMrA96Q8YeBLiTAxAZYPJfLPHtjII53Ap85X5NAes2zInYurfvjjcKe6wwR1gAFUwlzWAotBHRNfTiscTgYLEVXDV1OqIxlDR1FR1S1CBLlLLVzRRg6EMqTWqkMbdebngYqmXeOppm8BY1fw%2BsAMFhNFestgDRdjeF0qyvB9Tl3sPGzucpGhw871HMxj%2FRbkEZfKMiRYHxNEEUPOiqml%2Ft41NV20JUn8c15TLz0mVriEU8GOdrxoGtku9MIx8oXeFZ95OTHXQEpbrw4okfGMqXu41MhmDPh%2BlK0nZ6me06pm3XPnLJ9Ghqv6XQ1a%2Bjs%2F%2BfB%2FASLajHh4hNVfkHrui6uULznTLEAUipo3NDvLfunRC%2FiVP%2FmTD6le3o7Cd0QrBAHuxEAtsvKzDfT4Sqn0%2FEs9f%2BtfkhhseOX9OyKgKuJHNJZICbEHm9LpRdihD7REYaAqb6l%2BQVyJMFedSXQhHdUtE2yXvye4ypAh4DkrzCfXtfuQq%2FXiPTPsm9DUWqORlJ3gGH%2BPIqQoDynV3ZCpzbmOHOskIM4D8%3D--7wJHK1wEhfRwrtzJ--sqLa%2Bq1lAoe9g%2F260aQIog%3D%3D";
-    protected static final String SAVED_SESSION = "69304500%3AFfmVz90yVHuhYWcq4SYyTzHGMrA1-igs6QT14bmX0KYUit9p";
+    protected static final String USER_SESSION="sfArI_67467KovXNACD_t_tyVgWLwj1SjhyY1ZSRcdH1iof_";
+    protected static final String HOST_SESSION="sfArI_67467KovXNACD_t_tyVgWLwj1SjhyY1ZSRcdH1iof_";
+    protected static final String GH_SESS = "RDTz2pUviAnssEaqGAgGkLc4yezLimcaDpGWTuQMF2UqGvynZpCsZFzQB1R2HOta3R%2FkOIj" +
+            "W%2FfWeSiv3NG%2FScDr9zx1TG%2Bi4bY%2Fx8z2vo8%2FdCZY%2BIfEuRPRpqQ7vvurV6%2FHYuVJ%2Bj91jUroBPLwmacM%2FImE00%2B" +
+            "neB0m0gAkzMrYdCOjm1mj3zG1ADwSZZleaFk56u89VEdvPA3t5ZHFCI2SXkx0PAGTvAuLSziUgtBo%2BCTr9ApiD6aAs3e2ruukMlgBe3DOh" +
+            "oKLb2O9w9iq327ata2htjoWWUPr789lWPN8ogykVLv0HOktTPrqYv1oveXbvIkzwtdneKTeABeq1zC7TCkCrN1Jk289Mt75dxC6sA%2BfC8u" +
+            "2IS2O8Lb%2BepHEQDzuXlKCoczHVAPSXNMHo8W1wN2i3P1fNo%2FaUa%2FaoS1f05YxQRbHsHDUaJa7LuB72FxRuludXpyaLQnN4A9UrXFqQ" +
+            "Ni%2BY0vyWu5Xqd%2FnaJRtKAOmO73btS0FDP%2BzlzflQtNz6RP6mBS7Wengv%2BTLoA5bgdYxik6l2sdHNeCgYCOkA6daeUrjU2WP0ufXVD" +
+            "%2BzLBFgEyt9h1m6V5Gvj5Mq%2BNenNW4qSUMnfbbuDvHD%2BuksvDphA%2BQw3OQwfrqdi56fduI3EbjdyuF%2FT1aoRN0YbMEePoXEiYIAgT" +
+            "gMPumLcLHJCtu3qRPp2HDeLz3QqMErfACjbQYze1OGM1P8vAx6gYF0o66oacOAJY3V9uH5RReRukycWpvgnfl7uO3NIGrDf3%2BHStE7Pew6RM" +
+            "jnnY0rGf2glFZXJWTnSlc9xoTWX5MaB6dH%2BtiRSC77qbOEol3tD30B3VjTg452ih4UTkvC%2Fqq2nS%2FXsUPWQ--chaulUOJgsYQ%2B0YD-" +
+            "-n5M4i8EktQlPfYcOj5X1ow%3D%3D";
+    protected static final String SAVED_SESSION = "sfArI_67467KovXNACD_t_tyVgWLwj1SjhyY1ZSRcdH1iof_";
 
     protected static final String BASE_URL = "https://github.com";
     protected static final String RUN_ID = String.valueOf(System.currentTimeMillis());
@@ -60,7 +67,6 @@ public class BaseTest {
         Configuration.browserCapabilities = options;
 
         openBaseUrl();
-        loginViaCookies();
         logger.info("Браузер настроен. BASE_URL: {}", BASE_URL);
     }
 
@@ -100,24 +106,6 @@ public class BaseTest {
         }
     }
 
-    /**
-     * Выполняет вход в систему.
-     * Из-за WebAuthn-диалога Windows Security, который блокирует автоматический ввод,
-     * логин/пароль вводятся ВРУЧНУЮ пользователем — тест ждёт, пока URL страницы
-     * перестанет содержать "/login" (то есть пока не произойдёт успешный вход).
-     */
-    protected void loginWithValidUser() {
-        logger.info("Открываю страницу логина...");
-        openWithRetry(BASE_URL + "/login");
-
-        logger.info("Ожидание РУЧНОГО входа пользователем (введите логин/пароль и нажмите Sign in)...");
-
-        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), Duration.ofSeconds(60));
-        wait.until(driver -> !driver.getCurrentUrl().contains("/login"));
-
-        logger.info("Вход выполнен, продолжаем тест...");
-    }
-
     protected void loginViaCookies() {
         logger.info("Авторизация через cookies...");
         openWithRetry(BASE_URL);
@@ -152,7 +140,4 @@ public class BaseTest {
         return WebDriverRunner.url();
     }
 
-    protected String getPageTitle() {
-        return Selenide.title();
-    }
 }

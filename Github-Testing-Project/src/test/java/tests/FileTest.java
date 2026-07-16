@@ -2,13 +2,13 @@ package tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import pages.CreateFilePage;
 import pages.RepositoryPage;
 import pages.FilePage;
 import pages.CommitPage;
 import pages.CommitModal;
-
 
 public class FileTest extends BaseTest {
 
@@ -17,6 +17,7 @@ public class FileTest extends BaseTest {
     private static final String FILE_CONTENT = "Hello, World!";
 
     @Test
+    @Order(1)
     @DisplayName("Создание файла в репозитории")
     public void createFileTest() {
         loginViaCookies();
@@ -36,18 +37,23 @@ public class FileTest extends BaseTest {
     }
 
     @Test
+    @Order(2)
+    @DisplayName("Удаление файла из репозитория")
     public void deleteFileTest() {
         loginViaCookies();
         RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
 
-        Assertions.assertTrue(repoPage.isFileExists(FILE_NAME), "Файл должен существовать");
+        Assertions.assertTrue(repoPage.isFileExists(FILE_NAME),
+                "Файл '" + FILE_NAME + "' должен существовать перед удалением");
 
         FilePage filePage = repoPage.clickOnFile(FILE_NAME);
-        CommitPage commitPage = filePage.clickMoreOptions().selectDeleteFile();
-        commitPage.confirm();
-        CommitModal commitModal = commitPage.confirm();
+        
+        CommitPage commitPage = filePage.clickMoreOptions()
+                                        .selectDeleteFile();
 
-        RepositoryPage updatedRepoPage = commitModal.confirm();
-        Assertions.assertFalse(updatedRepoPage.isFileExistsInTable(FILE_NAME), "Файл должен быть удалён");
+        RepositoryPage updatedRepoPage = commitPage.confirm();
+
+        Assertions.assertFalse(updatedRepoPage.isFileExists(FILE_NAME),
+                "Файл '" + FILE_NAME + "' должен быть удалён");
     }
-    }
+}

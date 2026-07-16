@@ -36,6 +36,7 @@ public class RepoTest extends BaseTest {
     @Test
     @DisplayName("Создание публичного репозитория")
     public void createPublicRepositoryTest() {
+        loginViaCookies();
         createRepository("NewRepoPublic-" + RUN_ID, false);
     }
 
@@ -44,6 +45,7 @@ public class RepoTest extends BaseTest {
     public void createPrivateRepositoryTest() {
         String repoName = "NewRepoPrivate-" + RUN_ID;
 
+        loginViaCookies();
         RepositoryPage repoPage = createRepository(repoName, true);
 
         Assertions.assertTrue(repoPage.isPrivate(), "Репозиторий должен быть приватным");

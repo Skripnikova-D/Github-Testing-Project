@@ -1,23 +1,18 @@
 package elements;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Класс для работы со ссылками на странице.
  * Пример: Link link = Link.byHref("/pulls");
  */
-public class Link extends BaseElement{
-    private static final Logger logger = LoggerFactory.getLogger(Link.class); //Логгер для записи сообщений о работе класса
+public class Link extends BaseElement implements Clickable{
 
-    // Шаблоны XPath
     private static final String HREF_XPATH = "//a[@href='%s']";
     private static final String CONTAINS_XPATH = "//a[contains(., '%s')]";
     private static final String ARIA_LABEL_XPATH = "//a[@aria-label='%s']";
+    private static final String DATA_TAB_ITEM_XPATH = "//a[@data-tab-item='%s']";
 
     private static final String HREF_WITH_LOCATION_XPATH = "//a[@href='%s' and contains(@data-hydro-click, '%s')]";
 
-    // Конструкторы
     /**
      * Конструктор с подстановкой значения в шаблон XPath.
      * Пример: new Link("//a[@href='%s']", "/pulls")
@@ -39,7 +34,13 @@ public class Link extends BaseElement{
         super(xpath);
     }
 
-    // Методы поиска
+    /**
+     * Кликает по ссылке.
+     */
+    @Override
+    public void click() {
+        baseElement.click();
+    }
 
     /**
      * Поиск ссылки по атрибуту href.
@@ -87,38 +88,7 @@ public class Link extends BaseElement{
         return new Link(xpath);
     }
 
-    /**
-     * Поиск ветки по типу (base/head) и названию.
-     * Пример: Link.branch("base", "main")
-     * Пример: Link.branch("head", "asdf")
-     *
-     * @param type       "base" или "head"
-     * @param branchName Название ветки
-     * @return объект Link
-     */
-    public static Link branch(String type, String branchName) {
-        String xpath = "//*[contains(@id, '" + type + "')]//a[span='" + branchName + "']";
-        return new Link(xpath);
-    }
-
-    /**
-     * Поиск ветки в секции "Active branches" по названию.
-     * Пример: Link.branchInActive("asdf")
-     *
-     * @param branchName Название ветки
-     * @return объект Link
-     */
-    public static Link branchInActive(String branchName) {
-        String xpath = "//h2[contains(text(), 'Active branches')]/following-sibling::div//a[contains(., '" + branchName + "')]";
-        return new Link(xpath);
-    }
-
-    // Методы взаимодействия
-    /**
-     * Кликает по ссылке.
-     */
-    public void click() {
-        logger.info("Клик по ссылке: {}", baseElement);
-        baseElement.click();
+    public static Link byDataTabItem(String tabItem) {
+        return new Link(DATA_TAB_ITEM_XPATH, tabItem);
     }
 }
