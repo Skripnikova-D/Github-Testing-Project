@@ -21,7 +21,6 @@ public class RepositoryPage extends BasePage {
     private static final String REPO_IN_LIST_XPATH = "//a[contains(text(), '%s')]";
     private static final String FILE_EXISTS_XPATH = "//td[@class='react-directory-row-name-cell-large-screen']//a[@title='%s']";
 
-    // Элементы страницы
     private final Button addFileButton = Button.byAriaLabel("Add file");
     private final Link codeTab = Link.byDataTabItem("code");
     private final Link pullRequestsTab = Link.byHref("/Test7473/NewRepoPublic1/pulls");
@@ -89,11 +88,9 @@ public class RepositoryPage extends BasePage {
     public boolean isFileExists(String fileName) {
         logger.info("Проверка наличия файла: {}", fileName);
 
-        // GitHub использует либо атрибут title, либо прямой текст внутри ссылки <a> для имен файлов
         String xpath = String.format(FILE_EXISTS_XPATH, fileName);
 
         try {
-            // shouldBe(visible) заставит Selenide ждать появления файла до 15 секунд
             $x(xpath).shouldBe(visible, Duration.ofSeconds(15));
             return true;
         } catch (Throwable e) {

@@ -11,7 +11,6 @@ import static com.codeborne.selenide.Selenide.$x;
 public class PullRequestPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(PullRequestPage.class);
 
-    // XPath для бейджа статуса (Open / Closed / Merged);
     private static final String PR_CLOSED_XPATH = "//span[@data-status='pullClosed']";
     private final Button closePullRequestButton = Button.byContainsText("Close pull request");
 

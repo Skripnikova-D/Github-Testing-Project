@@ -15,18 +15,21 @@ import static com.codeborne.selenide.Selenide.$x;
  * Страница со списком Pull Requests.
  */
 public class PullRequestsPage extends BasePage {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(PullRequestsPage.class);
-    
-    private static final String PR_OPEN_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'open')]";
+    private static final int SLEEP_TIME = 2000;
+
+    private static final String PR_OPEN_XPATH_TEMPLATE = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'open')]";
     private static final String PR_CLOSED_XPATH = "//span[@data-status='pullClosed']";
-    private static final String PR_IN_LIST_XPATH = "//a[contains(text(), '%s')]";
-    private static final String PR_STATUS_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'Issue')]" +
+    private static final String PR_IN_LIST_XPATH_TEMPLATE = "//a[contains(text(), '%s')]";
+    private static final String PR_STATUS_XPATH_TEMPLATE = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'Issue')]" +
             "//span[contains(@class, 'State')]";
-    
-    // ЭЛЕМЕНТЫ СТРАНИЦЫ 
-    private final Link newPullRequestButton = Link.byHref("/Test7473/NewRepoPublic1/compare");
-    private final Button closePullRequestButton = Button.byContainsText("Close pull request");
+
+    private static final String NEW_PULL_REQUEST_HREF = "/Test7473/NewRepoPublic1/compare";
+    private static final String CLOSE_PULL_REQUEST_BUTTON_TEXT = "Close pull request";
+
+    private final Link newPullRequestButton = Link.byHref(NEW_PULL_REQUEST_HREF);
+    private final Button closePullRequestButton = Button.byContainsText(CLOSE_PULL_REQUEST_BUTTON_TEXT);
 
     /**
      * Нажимает кнопку "New pull request"
@@ -53,11 +56,9 @@ public class PullRequestsPage extends BasePage {
     public boolean isPullRequestInList(String title) {
         logger.info("Проверка наличия PR в списке: {}", title);
 
-        // Ждем появления PR в списке
-        Selenide.sleep(2000);
+        Selenide.sleep(SLEEP_TIME);
 
-        // Ищем ссылку с текстом PR
-        String xpath = "//a[contains(text(), '" + title + "')]";
+        String xpath = String.format(PR_IN_LIST_XPATH_TEMPLATE, title);
 
         try {
             $x(xpath).shouldBe(Condition.visible, Duration.ofSeconds(10));

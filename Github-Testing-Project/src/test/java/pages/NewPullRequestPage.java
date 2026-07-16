@@ -14,48 +14,73 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
+/**
+ * Страница создания нового Pull Request.
+ */
 public class NewPullRequestPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NewPullRequestPage.class);
+    private static final int SLEEP_TIME = 100;
+
+    private static final String BASE_BRANCH_SUMMARY_XPATH = "//summary[contains(., 'base:')]";
+    private static final String COMPARE_BRANCH_SUMMARY_XPATH = "//summary[contains(., 'compare:')]";
+    private static final String BRANCH_ITEM_XPATH_TEMPLATE = "//span[contains(@class, 'css-truncate') and contains(@class, 'css-truncate-overflow') and text()='%s']";
+    private static final String COMPARE_BRANCH_ITEM_XPATH_TEMPLATE = "//span[contains(@class, 'css-truncate') and text()='%s']";
+
+    private static final String CREATE_PR_BUTTON_CONTAINS_XPATH = "//button[contains(., 'Create pull request')]";
+    private static final String CREATE_PR_BUTTON_VISIBLE_XPATH = "//button[contains(., 'Create pull request') and not(contains(@style, 'display: none')) and not(@hidden)]";
+
+    private static final String PR_TITLE_INPUT_XPATH = "//input[@name='pull_request[title]']";
+
+    private static final String PULL_REQUESTS_LINK_XPATH = "//a[contains(@href, '/pulls') and contains(., 'Pull requests')]";
 
     private final Button createPullRequestButton = Button.byContainsText("Create pull request");
     private final Input prTitleInput = Input.byAriaLabel("Title");
 
+    /**
+     * Выбирает base ветку для Pull Request.
+     */
     public NewPullRequestPage selectBaseBranch(String branchName) {
         logger.info("Выбор base ветки: {}", branchName);
 
-        $x("//summary[contains(., 'base:')]")
+        $x(BASE_BRANCH_SUMMARY_XPATH)
                 .shouldBe(Condition.clickable, Duration.ofSeconds(10))
                 .click();
 
-        Selenide.sleep(500);
+        Selenide.sleep(5 * SLEEP_TIME);
 
-        $x("//span[contains(@class, 'css-truncate') and contains(@class, 'css-truncate-overflow') and text()='" + branchName + "']")
+        $x(String.format(BRANCH_ITEM_XPATH_TEMPLATE, branchName))
                 .shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .click();
 
         return this;
     }
 
+    /**
+     * Выбирает compare ветку для Pull Request.
+     */
     public NewPullRequestPage selectCompareBranch(String branchName) {
         logger.info("Выбор compare ветки: {}", branchName);
 
-        $x("//summary[contains(., 'compare:')]")
+        $x(COMPARE_BRANCH_SUMMARY_XPATH)
                 .shouldBe(Condition.clickable, Duration.ofSeconds(10))
                 .click();
 
-        Selenide.sleep(500);
+        Selenide.sleep(5 * SLEEP_TIME);
 
-        $x("//span[contains(@class, 'css-truncate') and text()='" + branchName + "']")
+        $x(String.format(COMPARE_BRANCH_ITEM_XPATH_TEMPLATE, branchName))
                 .shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .click();
 
         return this;
     }
 
+    /**
+     * Нажимает кнопку Create pull request (первый этап создания PR).
+     */
     public NewPullRequestPage clickCreatePullRequestButton() {
         logger.info("Нажатие кнопки Create pull request (первый этап)");
 
-        SelenideElement button = $x("//button[contains(., 'Create pull request')]");
+        SelenideElement button = $x(CREATE_PR_BUTTON_CONTAINS_XPATH);
         button.shouldBe(Condition.visible, Duration.ofSeconds(10));
         Selenide.executeJavaScript("arguments[0].click();", button);
 
@@ -67,23 +92,28 @@ public class NewPullRequestPage extends BasePage {
         return this;
     }
 
+    /**
+     * Устанавливает заголовок Pull Request.
+     */
     public NewPullRequestPage setPullRequestTitle(String title) {
         logger.info("Установка заголовка PR: {}", title);
-        $x("//input[@name='pull_request[title]']")
+        $x(PR_TITLE_INPUT_XPATH)
                 .shouldBe(Condition.visible, Duration.ofSeconds(10))
                 .setValue(title);
         return this;
     }
 
+    /**
+     * Подтверждает создание Pull Request.
+     * Возвращает PullRequestsPage, так как после создания открывается страница со списком PR.
+     */
     public PullRequestsPage confirmCreatePullRequest() {
         logger.info("Подтверждение создания Pull Request");
 
-        // Ищем ВИДИМУЮ кнопку Create pull request
-        SelenideElement createButton = $x("//button[contains(., 'Create pull request') and not(contains(@style, 'display: none')) and not(@hidden)]");
+        SelenideElement createButton = $x(CREATE_PR_BUTTON_VISIBLE_XPATH);
 
         if (!createButton.isDisplayed()) {
-            // Если не нашли - ищем все кнопки и берем видимую
-            var buttons = $$x("//button[contains(., 'Create pull request')]");
+            var buttons = $$x(CREATE_PR_BUTTON_CONTAINS_XPATH);
             for (SelenideElement btn : buttons) {
                 if (btn.isDisplayed()) {
                     createButton = btn;
@@ -93,7 +123,7 @@ public class NewPullRequestPage extends BasePage {
         }
 
         createButton.scrollIntoView(true);
-        Selenide.sleep(300);
+        Selenide.sleep(3 * SLEEP_TIME);
         createButton.click();
 
         Selenide.Wait().withTimeout(Duration.ofSeconds(20))
@@ -101,10 +131,9 @@ public class NewPullRequestPage extends BasePage {
                     String url = WebDriverRunner.url();
                     return url.contains("/pull/") || url.contains("/pulls");
                 });
-        Selenide.sleep(2000);
+        Selenide.sleep(20 * SLEEP_TIME);
 
-        // Кликаем на вкладку Pull requests через ссылку
-        $x("//a[contains(@href, '/pulls') and contains(., 'Pull requests')]")
+        $x(PULL_REQUESTS_LINK_XPATH)
                 .shouldBe(Condition.visible, Duration.ofSeconds(10))
                 .click();
 
