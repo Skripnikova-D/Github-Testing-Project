@@ -25,7 +25,6 @@ public class BaseTest {
     private static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
     protected static final String VALID_USERNAME = System.getProperty("github.username", "Test7473");
-    //protected static final String VALID_PASSWORD = System.getProperty("github.password", "Test737475");
 
     protected static final String USER_SESSION="sfArI_67467KovXNACD_t_tyVgWLwj1SjhyY1ZSRcdH1iof_";
     protected static final String HOST_SESSION="sfArI_67467KovXNACD_t_tyVgWLwj1SjhyY1ZSRcdH1iof_";
@@ -106,24 +105,6 @@ public class BaseTest {
             logger.warn("Таймаут при refresh, повторная попытка...");
             Selenide.refresh();
         }
-    }
-
-    /**
-     * Выполняет вход в систему.
-     * Из-за WebAuthn-диалога Windows Security, который блокирует автоматический ввод,
-     * логин/пароль вводятся ВРУЧНУЮ пользователем — тест ждёт, пока URL страницы
-     * перестанет содержать "/login" (то есть пока не произойдёт успешный вход).
-     */
-    protected void loginWithValidUser() {
-        logger.info("Открываю страницу логина...");
-        openWithRetry(BASE_URL + "/login");
-
-        logger.info("Ожидание РУЧНОГО входа пользователем (введите логин/пароль и нажмите Sign in)...");
-
-        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), Duration.ofSeconds(60));
-        wait.until(driver -> !driver.getCurrentUrl().contains("/login"));
-
-        logger.info("Вход выполнен, продолжаем тест...");
     }
 
     protected void loginViaCookies() {
