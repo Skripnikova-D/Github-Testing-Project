@@ -10,7 +10,7 @@ public class PullRequestTests extends BaseTest {
 
     private static final String REPO_NAME = "NewRepoPublic1";
     private static final String BRANCH_NAME = "NewBranch";
-    private static final String PR_TITLE = "NewPR";
+    private static final String PR_TITLE = "New branch";
     private static final String BASE_BRANCH = "main";
     private static final String FILE_NAME = "feature_file"+ RUN_ID+ ".txt" ;
     private static final String FILE_CONTENT = "This is a new feature!";
