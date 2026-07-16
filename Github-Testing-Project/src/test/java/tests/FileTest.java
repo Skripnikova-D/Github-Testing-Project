@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import pages.CreateFilePage;
 import pages.RepositoryPage;
@@ -16,9 +17,9 @@ public class FileTest extends BaseTest {
     private static final String FILE_CONTENT = "Hello, World!";
 
     @Test
+    @Order(1)
     @DisplayName("Создание файла в репозитории")
     public void createFileTest() {
-        //loginWithValidUser();
         loginViaCookies();
         RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
 
@@ -36,9 +37,9 @@ public class FileTest extends BaseTest {
     }
 
     @Test
+    @Order(2)
     @DisplayName("Удаление файла из репозитория")
     public void deleteFileTest() {
-        //loginWithValidUser();
         loginViaCookies();
         RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
 
@@ -50,7 +51,7 @@ public class FileTest extends BaseTest {
         
         CommitPage commitPage = filePage.clickMoreOptions()
                                         .selectDeleteFile();
-        
+
         RepositoryPage updatedRepoPage = commitPage.confirm();
 
         Assertions.assertFalse(updatedRepoPage.isFileExists(FILE_NAME),
