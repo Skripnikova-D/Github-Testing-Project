@@ -1,9 +1,13 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import elements.Button;
 import elements.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -20,7 +24,7 @@ public class PullRequestsPage extends BasePage {
     private static final String PR_STATUS_XPATH = "//a[contains(text(), '%s')]/ancestor::div[contains(@class, 'Issue')]//span[contains(@class, 'State')]";
     
     // ЭЛЕМЕНТЫ СТРАНИЦЫ 
-    private final Button newPullRequestButton = Button.byContainsText("New pull request");
+    private final Link newPullRequestButton = Link.byHref("/Test7473/NewRepoPublic1/compare");
     private final Button closePullRequestButton = Button.byContainsText("Close pull request");
 
     /**
@@ -53,9 +57,18 @@ public class PullRequestsPage extends BasePage {
     /**
      * Проверяет, открыт ли Pull Request
      */
-    public boolean isPullRequestOpen(String prName) {
-        logger.info("Проверка, что Pull Request {} открыт", prName);
-        return $x(String.format(PR_OPEN_XPATH, prName)).isDisplayed();
+    public boolean isPullRequestOpen(String title) {
+        logger.info("Проверка, что PR открыт: {}", title);
+
+        String xpath = "//a[contains(@class, 'Link--primary') and contains(text(), '" + title + "')]";
+
+        if (!$x(xpath).exists()) {
+            return false;
+        }
+
+        // Ищем метку Open в той же строке
+        String statusXpath = "//a[contains(@class, 'Link--primary') and contains(text(), '" + title + "')]/ancestor::tr//span[contains(text(), 'Open')]";
+        return $x(statusXpath).exists();
     }
 
     /**
@@ -69,9 +82,23 @@ public class PullRequestsPage extends BasePage {
     /**
      * Проверяет, отображается ли Pull Request в списке
      */
-    public boolean isPullRequestInList(String prName) {
-        logger.info("Проверка, что Pull Request {} отображается в списке", prName);
-        return $x(String.format(PR_IN_LIST_XPATH, prName)).isDisplayed();
+    public boolean isPullRequestInList(String title) {
+        logger.info("Проверка наличия PR в списке: {}", title);
+
+        // Ждем появления PR в списке
+        Selenide.sleep(2000);
+
+        // Ищем ссылку с текстом PR
+        String xpath = "//a[contains(text(), '" + title + "')]";
+
+        try {
+            $x(xpath).shouldBe(Condition.visible, Duration.ofSeconds(10));
+            logger.info("PR '{}' найден", title);
+            return true;
+        } catch (Exception e) {
+            logger.warn("PR '{}' не найден", title);
+            return false;
+        }
     }
 
     /**

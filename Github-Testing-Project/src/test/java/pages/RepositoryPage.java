@@ -1,5 +1,6 @@
 package pages;
 
+import elements.BranchTable;
 import elements.Button;
 import elements.Link;
 
@@ -18,12 +19,12 @@ public class RepositoryPage extends BasePage {
     private static final String REPO_NAME_XPATH = "//a[contains(@class, 'overflow-x-hidden') and contains(@class, 'color-fg-default')]";
     private static final String PRIVATE_BADGE_XPATH = "//span[contains(text(), 'Private')]";
     private static final String REPO_IN_LIST_XPATH = "//a[contains(text(), '%s')]";
-    private static final String FILE_EXISTS_XPATH = "//a[contains(@title, '%s')]";
+    private static final String FILE_EXISTS_XPATH = "//td[@class='react-directory-row-name-cell-large-screen']//a[@title='%s']";
 
     // Элементы страницы
     private final Button addFileButton = Button.byAriaLabel("Add file");
     private final Link codeTab = Link.byDataTabItem("code");
-    private final Button pullRequestsTab = Button.byContainsText("Pull requests");
+    private final Link pullRequestsTab = Link.byHref("/Test7473/NewRepoPublic1/pulls");
     private final Button branchSelector = Button.byAriaLabel("main branch");
     private final Link viewAllBranches = Link.byContainsText("View all branches");
 
@@ -83,27 +84,6 @@ public class RepositoryPage extends BasePage {
     }
 
     /**
-     * Выбирает ветку
-     */
-    public RepositoryPage selectBranch(String branchName) {
-        logger.info("Выбор ветки: {}", branchName);
-        branchSelector.click();
-        Link.byContainsText(branchName).click();
-        return this;
-    }
-
-    /**
-     * Проверяет, существует ли ветка
-     */
-   /* public boolean isBranchPresent(String branchName) {
-        logger.info("Проверка наличия ветки: {}", branchName);
-        branchSelector.click();
-        boolean exists = Link.byContainsText(branchName).isDisplayed();
-        branchSelector.click(); // закрываем дропдаун
-        return exists;
-    }*/
-
-    /**
      * Получает имя текущей ветки
      */
    public String getCurrentBranchName() {
@@ -127,7 +107,7 @@ public class RepositoryPage extends BasePage {
      */
     public FilePage clickOnFile(String fileName) {
         logger.info("Клик на файл: {}", fileName);
-        Link.byContainsText(fileName).click();
+        BranchTable.clickFileLink("react-directory-row-name-cell-large-screen", fileName);
         return new FilePage();
     }
 
@@ -138,13 +118,13 @@ public class RepositoryPage extends BasePage {
         logger.info("Проверка наличия файла: {}", fileName);
 
         // GitHub использует либо атрибут title, либо прямой текст внутри ссылки <a> для имен файлов
-        String xpath = String.format("//a[@title='%s' or contains(text(), '%s')]", fileName, fileName);
+        String xpath = String.format(FILE_EXISTS_XPATH, fileName);
 
         try {
             // shouldBe(visible) заставит Selenide ждать появления файла до 15 секунд
             $x(xpath).shouldBe(visible, Duration.ofSeconds(15));
             return true;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.warn("Файл '{}' не появился на странице за 15 секунд", fileName);
             return false;
         }

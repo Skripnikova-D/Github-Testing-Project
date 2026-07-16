@@ -52,9 +52,18 @@ public class BranchesPage extends BasePage {
         String deleteButtonXpath = String.format(DELETE_BUTTON_XPATH, branchName);
         $x(deleteButtonXpath).shouldNotBe(visible, Duration.ofSeconds(10));
 
-
-
         return this;
+    }
+
+    /**
+     * Кликает на конкретную ветку в списке.
+     * Возвращает RepositoryPage, так как клик по имени ветки открывает код этой ветки.
+     */
+    public RepositoryPage clickBranch(String branchName) {
+        logger.info("Клик на ветку в списке: {}", branchName);
+        $x(String.format(BRANCH_XPATH, branchName)).click();
+        //BranchTable.clickBranchLink("Active branches", branchName);
+        return new RepositoryPage();
     }
 
     public boolean isBranchExists(String branchName) {
