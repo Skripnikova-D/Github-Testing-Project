@@ -5,15 +5,12 @@ import elements.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.codeborne.selenide.Selenide.$x;
-
 /**
  * Главная страница GitHub после авторизации.
  */
 public class MainPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(MainPage.class);
 
-    // Элементы страницы
     private final Link newButton = Link.byHrefWithLocation("/new","left");
 
     /**

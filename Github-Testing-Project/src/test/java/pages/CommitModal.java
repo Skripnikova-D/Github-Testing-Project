@@ -25,6 +25,11 @@ public class CommitModal extends BaseModal {
     private static final String MODAL_XPATH = "//div[@role='dialog' and contains(., 'Commit changes')]";
     private final Button commitButton = Button.byContainsText("Commit changes");
 
+
+    /**
+     * Конструктор модального окна коммита.
+     * Ожидает открытия модального окна и логирует успешное открытие.
+     */
     public CommitModal() {
         super(MODAL_XPATH);
         waitForOpen();
@@ -40,7 +45,6 @@ public class CommitModal extends BaseModal {
         logger.info("Подтверждение коммита");
         commitButton.click();
 
-        // Ожидание закрытия модального окна
         waitForClose();
         logger.info("Модальное окно закрыто, возврат на страницу репозитория");
 

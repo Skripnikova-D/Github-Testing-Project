@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 public class NewRepositoryPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(NewRepositoryPage.class);
 
-    // Элементы страницы
     private final Input repoNameInput = Input.byId("repository-name-input");
     private final Button visibilityRepoButton = Button.byId("visibility-anchor-button");
     private final DropdownItem publicRadio = DropdownItem.byMenuAndText("menu", "Public");

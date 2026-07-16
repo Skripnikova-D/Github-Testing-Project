@@ -9,7 +9,6 @@ public class FilePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(FilePage.class);
 
-    // Элементы
     private final Button moreOptions = Button.byDataTestId("more-file-actions-button-nav-menu-wide");
     private final Link deleteFileOption = Link.byAriaLabel("Delete this file");
 

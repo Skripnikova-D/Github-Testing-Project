@@ -6,7 +6,6 @@ import elements.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pages.CommitModal;
 
 /**
  * Страница создания нового файла.
@@ -15,7 +14,6 @@ public class CreateFilePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(CreateFilePage.class);
 
-    // Элементы страницы
     private final Input fileNameInput = Input.byAriaLabel("File name");
     private final CodeMirrorInput fileContent = CodeMirrorInput.byClass("cm-editor");
     private final Button commitChangesButton = Button.byContainsText("Commit changes...");
@@ -46,7 +44,6 @@ public class CreateFilePage extends BasePage {
         logger.info("Нажатие кнопки Commit changes...");
         commitChangesButton.click();
 
-        // Возвращаем модальное окно
         return new CommitModal();
     }
 }
