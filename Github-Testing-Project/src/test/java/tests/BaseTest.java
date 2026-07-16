@@ -1,12 +1,12 @@
 package tests;
 
-import java.time.Duration;
+
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,6 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 
-import pages.LoginPage;
 
 /**
  * Базовый класс для всех тестовых классов проекта.
@@ -141,7 +140,4 @@ public class BaseTest {
         return WebDriverRunner.url();
     }
 
-    protected String getPageTitle() {
-        return Selenide.title();
-    }
 }

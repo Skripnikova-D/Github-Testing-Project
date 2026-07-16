@@ -43,18 +43,4 @@ public class BaseModal {
         modalContainer.shouldBe(hidden, Duration.ofSeconds(5));
     }
 
-    /**
-     * Проверяет, открыто ли модальное окно
-     */
-    public boolean isOpen() {
-        return modalContainer.isDisplayed();
-    }
-
-    /**
-     * Закрывает модальное окно (клик вне)
-     */
-    public void close() {
-        logger.info("Закрытие модального окна");
-        $x(BODY_XPATH).click();
-    }
 }

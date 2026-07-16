@@ -1,14 +1,11 @@
 package elements;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Класс для работы с пунктами выпадающих списков.
  * Пример: DropdownItem item = DropdownItem.byRoleAndText("Public");
  */
 public class DropdownItem extends BaseElement implements Clickable{
-    private static final Logger logger = LoggerFactory.getLogger(DropdownItem.class); //Логгер для записи сообщений о работе класса
     private static final String MENU_AND_TEXT_XPATH = "//ul[@role='%s']//li[contains(., '%s')]";
 
     /**
@@ -23,26 +20,13 @@ public class DropdownItem extends BaseElement implements Clickable{
     }
 
     /**
-     * Конструктор для готового XPath (без подстановки).
-     * Пример: new DropdownItem("//ul[@role='menu']//li[contains(., 'Public')]")
-     *
-     * @param xpath Полный XPath элемента
-     */
-    protected DropdownItem(String xpath) {
-        super(xpath);
-    }
-
-    //Метод взаимодействия
-    /**
      * Выбирает пункт меню (кликает по нему).
      */
     @Override
     public void click() {
-        //logger.info("Клик по пункту меню: {}", baseElement);
         baseElement.click();
     }
 
-    //Методы поиска
     /**
      * Поиск пункта меню по роли меню и тексту пункта.
      * Пример: DropdownItem.byMenuAndText("menu", "Public")
@@ -54,13 +38,4 @@ public class DropdownItem extends BaseElement implements Clickable{
     public static DropdownItem byMenuAndText(String menuRole, String text) {
         return new DropdownItem(MENU_AND_TEXT_XPATH, menuRole, text);
     }
-
-    /**
-     * Поиск пункта меню по готовому XPath.
-     * Пример: DropdownItem.byXpath("//ul[@role='menu']//li[contains(., 'Public')]")
-     */
-    public static DropdownItem byXpath(String xpath) {
-        return new DropdownItem(xpath);
-    }
-
 }

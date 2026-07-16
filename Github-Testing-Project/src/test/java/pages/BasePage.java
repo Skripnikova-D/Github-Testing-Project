@@ -1,11 +1,10 @@
 package pages;
 
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.codeborne.selenide.Condition.visible;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 /**
@@ -23,17 +22,4 @@ public class BasePage {
         return $x(BODY_XPATH).isDisplayed();
     }
 
-    /**
-     * Получает текущий URL страницы
-     */
-    public String getCurrentUrl() {
-        return Selenide.webdriver().driver().url();
-    }
-
-    /**
-     * Получает заголовок страницы
-     */
-    public String getPageTitle() {
-        return Selenide.title();
-    }
 }

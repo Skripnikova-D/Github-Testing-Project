@@ -43,7 +43,6 @@ public class FileTest extends BaseTest {
         loginViaCookies();
         RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
 
-        // Проверяем, что файл существует перед удалением
         Assertions.assertTrue(repoPage.isFileExists(FILE_NAME),
                 "Файл '" + FILE_NAME + "' должен существовать перед удалением");
 

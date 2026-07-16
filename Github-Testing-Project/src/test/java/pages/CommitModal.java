@@ -23,11 +23,7 @@ public class CommitModal extends BaseModal {
     private static final Logger logger = LoggerFactory.getLogger(CommitModal.class);
 
     private static final String MODAL_XPATH = "//div[@role='dialog' and contains(., 'Commit changes')]";
-
-    // Элементы модального окна
-    private final Input commitMessageInput = Input.byAriaLabel("Commit message");
     private final Button commitButton = Button.byContainsText("Commit changes");
-    private final Button cancelButton = Button.byContainsText("Cancel");
 
     public CommitModal() {
         super(MODAL_XPATH);
@@ -35,14 +31,6 @@ public class CommitModal extends BaseModal {
         logger.info("Модальное окно коммита открыто");
     }
 
-    /**
-     * Устанавливает сообщение коммита
-     */
-    public CommitModal setCommitMessage(String message) {
-        logger.info("Установка сообщения коммита: {}", message);
-        commitMessageInput.setValue(message);
-        return this;
-    }
 
     /**
      * Подтверждает коммит
@@ -57,16 +45,5 @@ public class CommitModal extends BaseModal {
         logger.info("Модальное окно закрыто, возврат на страницу репозитория");
 
         return new RepositoryPage();
-    }
-
-    /**
-     * Отменяет коммит
-     * Возврат на страницу создания файла
-     */
-    public CreateFilePage cancel() {
-        logger.info("Отмена коммита");
-        cancelButton.click();
-        $x(MODAL_XPATH).shouldBe(hidden, Duration.ofSeconds(3));
-        return new CreateFilePage();
     }
 }
