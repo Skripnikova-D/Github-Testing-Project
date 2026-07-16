@@ -1,6 +1,6 @@
 package pages;
 
-import elements.Button;
+
 import elements.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,6 @@ public class MainPage extends BasePage {
 
     // Элементы страницы
     private final Link newButton = Link.byHrefWithLocation("/new","left");
-    private final Link repositoryLink = Link.byContainsText("NewRepoPublic1");
 
     /**
      * Нажимает кнопку "New" для создания нового репозитория
@@ -34,13 +33,5 @@ public class MainPage extends BasePage {
         Link repoLink = Link.byContainsText(repoName);
         repoLink.click();
         return new RepositoryPage();
-    }
-
-    /**
-     * Проверяет, отображается ли репозиторий в списке
-     */
-    public boolean isRepositoryInList(String repoName) {
-        logger.info("Проверка наличия репозитория {} в списке", repoName);
-        return $x("//a[contains(text(), '" + repoName + "')]").isDisplayed();
     }
 }

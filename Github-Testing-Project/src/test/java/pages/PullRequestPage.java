@@ -21,7 +21,6 @@ public class PullRequestPage extends BasePage {
         return this;
     }
 
-
     /**
      * Проверяет, закрыт ли Pull Request
      */

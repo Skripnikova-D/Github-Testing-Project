@@ -15,8 +15,10 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class BranchesPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(BranchesPage.class);
-    private static final String BRANCH_XPATH = "//h2[contains(text(), 'Active branches')]/following-sibling::div//a[contains(., '%s')]";
-    private static final String DELETE_BUTTON_XPATH = "//h2[contains(text(), 'Active branches')]/following-sibling::div//tr[contains(., '%s')]//span[contains(text(), 'Delete branch')]/preceding-sibling::button";
+    private static final String BRANCH_XPATH = "//h2[contains(text(), 'Active branches')]/following-sibling::div" +
+            "//a[contains(., '%s')]";
+    private static final String DELETE_BUTTON_XPATH = "//h2[contains(text(), 'Active branches')]/following-sibling::div" +
+            "//tr[contains(., '%s')]//span[contains(text(), 'Delete branch')]/preceding-sibling::button";
 
     private final Button newBranchButton = Button.byContainsText("New branch");
     private final Input branchNameInput = Input.byLabel("New branch name");
@@ -40,11 +42,6 @@ public class BranchesPage extends BasePage {
         return this;
     }
 
-    public BranchesPage findBranch(String branchName) {
-        logger.info("Поиск ветки: {}", branchName);
-        $x(String.format(BRANCH_XPATH, branchName)).shouldBe(visible, Duration.ofSeconds(5));
-        return this;
-    }
 
     public BranchesPage deleteBranch(String branchName) {
         logger.info("Удаление ветки: {}", branchName);
@@ -65,6 +62,7 @@ public class BranchesPage extends BasePage {
         //BranchTable.clickBranchLink("Active branches", branchName);
         return new RepositoryPage();
     }
+
 
     public boolean isBranchExists(String branchName) {
         logger.info("Проверка существования ветки: {}", branchName);

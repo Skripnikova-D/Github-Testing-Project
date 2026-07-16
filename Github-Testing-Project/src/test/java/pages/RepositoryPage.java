@@ -65,15 +65,6 @@ public class RepositoryPage extends BasePage {
     }
 
     /**
-     * Кликает по селектору веток
-     */
-    public RepositoryPage clickBranchSelector() {
-        logger.info("Клик по селектору веток");
-        branchSelector.click();
-        return this;
-    }
-
-    /**
      * Нажимает "View all branches"
      */
     public BranchesPage clickViewAllBranches() {
@@ -81,25 +72,6 @@ public class RepositoryPage extends BasePage {
         branchSelector.click();
         viewAllBranches.click();
         return new BranchesPage();
-    }
-
-    /**
-     * Получает имя текущей ветки
-     */
-   public String getCurrentBranchName() {
-       logger.info("Получение текущей ветки");
-       return branchSelector.getText();
-   }
-
-    /**
-     * Проверяет, доступна ли ветка в выпадающем списке
-     */
-    public boolean isBranchAvailableInDropdown(String branchName) {
-        logger.info("Проверка доступности ветки {} в выпадающем списке", branchName);
-        branchSelector.click();
-        boolean exists = Link.byContainsText(branchName).isDisplayed();
-        branchSelector.click();
-        return exists;
     }
 
     /**
@@ -162,18 +134,4 @@ public class RepositoryPage extends BasePage {
         Link.byContainsText(repoName).click();
         return new RepositoryPage();
     }
-
-    /**
-     * Нажимает на вкладку Pull requests (альтернативный метод)
-     */
-    public PullRequestsPage clickPullRequestsTab() {
-        logger.info("Нажатие на вкладку Pull requests");
-        Link.byHref("/pulls").click();
-        return new PullRequestsPage();
-    }
-
-    /*public boolean isFilePresent(String fileName) {
-        logger.info("Проверка наличия файла: {}", fileName);
-        return $x(String.format(FILE_EXISTS_XPATH, fileName)).isDisplayed();
-    }*/
 }

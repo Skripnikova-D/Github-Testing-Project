@@ -9,7 +9,6 @@ public class CommitPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(CommitPage.class);
 
     private final Button commitButton = Button.byContainsText("Commit changes");
-    private final Button cancelButton = Button.byContainsText("Cancel");
 
     public RepositoryPage confirm() {
         logger.info("Подтверждение коммита");
