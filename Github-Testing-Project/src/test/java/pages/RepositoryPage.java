@@ -29,9 +29,10 @@ public class RepositoryPage extends BasePage {
     // Элементы страницы
     private final Button addFileButton = Button.byAriaLabel("Add file");
     private final Link codeTab = Link.byDataTabItem("code");
-    private final Button pullRequestsTab = Button.byContainsText("Pull requests");
+    private final Link pullRequestsTab = Link.byContainsText("Pull requests");
     private final Button branchSelector = Button.byAriaLabel("main branch");
     private final Link viewAllBranches = Link.byContainsText("View all branches");
+    private final Link newPullRequestLink = Link.byContainsText("New pull request");
 
     /**
      * Переходит на вкладку Code
@@ -93,8 +94,15 @@ public class RepositoryPage extends BasePage {
      */
     public RepositoryPage selectBranch(String branchName) {
         logger.info("Выбор ветки: {}", branchName);
+
         branchSelector.click();
-        Link.byContainsText(branchName).click();
+        Selenide.sleep(300);
+
+        // Ищем div с текстом ветки
+        $x("//div[contains(@class, 'HighlightedText-module__HighlightedText') and text()='" + branchName + "']")
+                .shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .click();
+
         return this;
     }
 
