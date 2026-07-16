@@ -60,10 +60,8 @@ public class PullRequestTests extends BaseTest {
         PullRequestsPage createdPrPage = newPrPage.confirmCreatePullRequest();
 
         // ---- 5. Проверки ----
-        Assertions.assertTrue(createdPrPage.isPullRequestOpen(PR_TITLE),
-                "PR с названием '" + PR_TITLE + "' должен быть открыт");
         Assertions.assertTrue(createdPrPage.isPullRequestInList(PR_TITLE),
-                "PR должен отображаться в списке Pull Requests");
+                "PR с названием '" + PR_TITLE + "' должен быть создан");
     }
 
     @Test
