@@ -20,7 +20,6 @@ public class PullRequestTests extends BaseTest {
     @Order(1)
     @DisplayName("Создание Pull Request между main и NewBranch")
     public void createPullRequestTest() {
-        //loginWithValidUser();
         loginViaCookies();
         MainPage mainPage = new MainPage();
         RepositoryPage repoPage = mainPage.openRepository(REPO_NAME);
@@ -39,7 +38,6 @@ public class PullRequestTests extends BaseTest {
         Assertions.assertTrue(repoPage.isFileExists(FILE_NAME),
                 "Файл '" + FILE_NAME + "' должен быть создан в ветке " + BRANCH_NAME);
 
-        // ---- 4. Создаём Pull Request ----
         PullRequestsPage prPage = repoPage.goToPullRequestsTab();
 
         NewPullRequestPage newPrPage = prPage.clickNewPullRequestButton();
@@ -51,31 +49,9 @@ public class PullRequestTests extends BaseTest {
 
         PullRequestsPage createdPrPage = newPrPage.confirmCreatePullRequest();
 
-        // ---- 5. Проверки ----
         Assertions.assertTrue(createdPrPage.isPullRequestInList(PR_TITLE),
                 "PR с названием '" + PR_TITLE + "' должен быть создан");
     }
-
-    /*@Test
-    @Order(2)
-    @DisplayName("Закрытие пулреквеста")
-    public void closePullRequestTest() {
-        //loginWithValidUser();
-        loginViaCookies();
-        RepositoryPage repoPage = RepositoryPage.openRepository(REPO_NAME);
-        PullRequestsPage prPage = repoPage.goToPullRequestsTab();
-        // Проверяем, что PR существует перед закрытием
-        Assertions.assertTrue(prPage.isPullRequestInList(PR_TITLE),
-                "PR с названием '" + PR_TITLE + "' должен существовать");
-
-        prPage.clickPullRequest(PR_TITLE)
-              .clickClosePullRequest();
-
-        Selenide.refresh();
-        // Проверка статуса
-        Assertions.assertTrue(prPage.isPullRequestClosed(PR_TITLE),
-                "Pull request '" + PR_TITLE + "' должен иметь статус Closed");
-    }*/
     @Test
     @Order(2)
     @DisplayName("Закрытие пулреквеста")
@@ -88,13 +64,11 @@ public class PullRequestTests extends BaseTest {
         Assertions.assertTrue(prPage.isPullRequestInList(PR_TITLE),
                 "PR с названием '" + PR_TITLE + "' должен существовать");
 
-        // 1. Кликаем на PR и СОХРАНЯЕМ возвращаемую страницу конкретного PR
         PullRequestPage prDetailPage = prPage.clickPullRequest(PR_TITLE);
 
-        // 3. Закрываем PR
         prDetailPage=prDetailPage.clickClosePullRequest();
         sleep(10000);
-        // 4. Проверяем статус НА СТРАНИЦЕ САМОГО PR, а не в общем списке!
+
         Assertions.assertTrue(prDetailPage.isPullRequestClosed(PR_TITLE),
                 "Pull request '" + PR_TITLE + "' должен иметь статус Closed");
     }
